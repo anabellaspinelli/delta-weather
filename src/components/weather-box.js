@@ -5,17 +5,17 @@ import styled from 'styled-components'
 
 const StyledContainer = styled(Container)`
     background-color: aliceblue;
-    height: 100px;
-    padding: 16px;
+    height: 400px;
+    padding: 32px;
     margin-top: 16px;
+    text-align: center;
+    border-radius: 8px;
 `
 
 export const WeatherBox = ({ temperatures }) => {
     return (
-        <StyledContainer
-            style={{ backgroundColor: 'aliceblue', height: '100px' }}
-        >
-            <Row>
+        <StyledContainer>
+            <Row className='justify-content-md-center'>
                 <Col xs={6}>
                     <h2>Yesterdays Weather</h2>
                     <h3>{`Temperature ${temperatures.yesterday} Cº`}</h3>
