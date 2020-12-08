@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 const StyledContainer = styled(Container)`
     background-color: aliceblue;
-    height: 400px;
+    height: 500px;
     padding: 32px;
     margin-top: 16px;
     text-align: center;
@@ -17,12 +17,12 @@ export const WeatherBox = ({ temperatures }) => {
         <StyledContainer>
             <Row className='justify-content-md-center'>
                 <Col xs={6}>
-                    <h2>Yesterdays Weather</h2>
-                    <h3>{`Temperature ${temperatures.yesterday} Cº`}</h3>
+                    <h3>Yesterdays Weather</h3>
+                    <h4>{`Temperature ${temperatures.yesterday} Cº`}</h4>
                 </Col>
                 <Col xs={6}>
-                    <h2>Todays Weather</h2>
-                    <h3>{`Temperature ${temperatures.today} Cº`}</h3>
+                    <h3>Todays Weather</h3>
+                    <h4>{`Temperature ${temperatures.today} Cº`}</h4>
                 </Col>
             </Row>
         </StyledContainer>

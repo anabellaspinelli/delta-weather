@@ -1,6 +1,7 @@
 export const initialState = {
     status: 'idle',
     temperatures: null,
+    locationName: null,
     error: null,
 }
 
@@ -19,6 +20,7 @@ export const temperatureReducer = (state, action) => {
                 ...state,
                 status: 'resolved',
                 temperatures: action.temperatures,
+                locationName: action.locationName,
             }
         }
 

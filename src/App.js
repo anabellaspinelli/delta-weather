@@ -1,11 +1,18 @@
 import React from 'react'
 import { Container, Spinner } from 'react-bootstrap'
+import styled from 'styled-components'
 import { ErrorBox } from './components/error-box'
 import { WeatherBox } from './components/weather-box'
 import { WeatherForm } from './components/weather-form'
 import './index.css'
 import { getAllWeathers } from './lib/transport'
 import { initialState, temperatureReducer } from './reducer'
+
+const WeatherTitle = styled.p`
+    font-size: 20pt;
+    text-align: center;
+    padding: 32px 0;
+`
 
 const App = () => {
     const [state, dispatch] = React.useReducer(temperatureReducer, initialState)
@@ -23,6 +30,7 @@ const App = () => {
                 yesterday: weathers.yesterday.location.values[0].temp,
                 today: weathers.today.location.values[0].temp,
             },
+            locationName: weathers.today.location.name,
         })
     }
 
@@ -46,7 +54,13 @@ const App = () => {
             )}
 
             {state.status === 'resolved' && (
-                <WeatherBox temperatures={state.temperatures} />
+                <>
+                    <WeatherTitle>
+                        The temperature for{' '}
+                        <strong>{state.locationName}</strong> is
+                    </WeatherTitle>
+                    <WeatherBox temperatures={state.temperatures} />
+                </>
             )}
         </Container>
     )
