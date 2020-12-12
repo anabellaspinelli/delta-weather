@@ -3,12 +3,12 @@ import React, { useState } from 'react'
 import { Button, Col, Row } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
 
-export const WeatherForm = ({ onSubmit }) => {
+export const LocationForm = ({ onSubmit }) => {
     const [location, setLocation] = useState('')
 
     const handleSubmit = event => {
         event.preventDefault()
-        onSubmit(event.target.value, location)
+        onSubmit(location)
     }
 
     return (
@@ -42,6 +42,6 @@ export const WeatherForm = ({ onSubmit }) => {
     )
 }
 
-WeatherForm.propTypes = {
+LocationForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
 }

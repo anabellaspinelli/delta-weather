@@ -16,7 +16,7 @@ const WeatherTitle = styled.p`
 
 const App = () => {
     const [state, dispatch] = React.useReducer(temperatureReducer, initialState)
-    const handleSubmit = async (event, location) => {
+    const handleSubmit = async location => {
         dispatch({ type: 'started' })
         const weathers = await getAllWeathers(location)
         if (weathers.error) {
