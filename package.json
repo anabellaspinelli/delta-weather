@@ -20,8 +20,14 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "lint": "eslint --fix --ignore-path .gitignore .",
-        "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\""
+        "lint": "eslint .gitignore .",
+        "format": "yarn lint src --fix && prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
+        "pre-commit": "yarn format && yarn test"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "CI=true yarn pre-commit"
+        }
     },
     "eslintConfig": {
         "extends": [
@@ -48,6 +54,7 @@
         "eslint-config-react-app": "^6.0.0",
         "eslint-plugin-jest": "^24.1.3",
         "eslint-plugin-react": "^7.21.5",
+        "husky": "^4.3.5",
         "prettier": "^2.2.1"
     }
 }
