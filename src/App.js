@@ -3,7 +3,7 @@ import { Container, Spinner } from 'react-bootstrap'
 import styled from 'styled-components'
 import { ErrorBox } from './components/error-box'
 import { WeatherBox } from './components/weather-box'
-import { WeatherForm } from './components/weather-form'
+import { LocationForm } from './components/location-form'
 import './index.css'
 import { getAllWeathers } from './lib/transport'
 import { initialState, temperatureReducer } from './reducers'
@@ -39,7 +39,7 @@ const App = () => {
             <h1 style={{ textAlign: 'center', fontSize: '60pt' }}>
                 More or Less Weather
             </h1>
-            <WeatherForm onSubmit={handleSubmit} />
+            <LocationForm onSubmit={handleSubmit} />
 
             {state.status === 'errored' && (
                 <ErrorBox errorMessage={state.error.message} />
