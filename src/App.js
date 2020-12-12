@@ -46,8 +46,8 @@ const App = () => {
             )}
 
             {state.status === 'pending' && (
-                <div style={{ margin: '0 auto' }}>
-                    <Spinner animation='border' role='status'>
+                <div className='d-flex justify-content-center m-5'>
+                    <Spinner animation='border' role='status' variant='primary'>
                         <span className='sr-only'>Loading the weather...</span>
                     </Spinner>
                 </div>
