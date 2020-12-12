@@ -15,7 +15,7 @@ const StyledContainer = styled(Container)`
 export const WeatherBox = ({ temperatures }) => {
     return (
         <StyledContainer>
-            <Row className='justify-content-md-center'>
+            <Row className='justify-content-xs-center'>
                 <Col xs={6}>
                     <h3>Yesterdays Weather</h3>
                     <h4>{`Temperature ${temperatures.yesterday} Cº`}</h4>
