@@ -2,7 +2,7 @@ import { render } from '@testing-library/react'
 import React from 'react'
 import { WeatherBox } from './weather-box'
 
-test('loads and displays greeting', async () => {
+test('renders the weather box', async () => {
     const weatherBoxProps = {
         temperatures: {
             today: 24,

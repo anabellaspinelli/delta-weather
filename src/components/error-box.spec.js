@@ -2,7 +2,7 @@ import { render } from '@testing-library/react'
 import React from 'react'
 import { ErrorBox } from './error-box'
 
-test('loads and displays greeting', async () => {
+test('renders the error box', async () => {
     const errorBoxProps = {
         errorMessage: 'Ooops testing error',
     }
