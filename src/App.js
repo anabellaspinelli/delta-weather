@@ -6,7 +6,7 @@ import { WeatherBox } from './components/weather-box'
 import { WeatherForm } from './components/weather-form'
 import './index.css'
 import { getAllWeathers } from './lib/transport'
-import { initialState, temperatureReducer } from './reducer'
+import { initialState, temperatureReducer } from './reducers'
 
 const WeatherTitle = styled.p`
     font-size: 20pt;
