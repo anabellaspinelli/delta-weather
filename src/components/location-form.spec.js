@@ -51,7 +51,7 @@ test('renders the location form', async () => {
     `)
 })
 
-test('renders the location form', async () => {
+test('searches for the location when submitted', async () => {
     const locationFormProps = {
         onSubmit: jest.fn(),
     }
@@ -64,7 +64,7 @@ test('renders the location form', async () => {
 
     const searchInput = getByPlaceholderText(/Try "Barcelona" or "Berlin".../)
 
-    userEvent.type(searchInput, 'la plata')
+    userEvent.type(searchInput, 'la plata', { skipClick: true })
     fireEvent.submit(searchInput)
 
     expect(locationFormProps.onSubmit).toHaveBeenCalledTimes(1)

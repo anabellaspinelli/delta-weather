@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { createRef, useEffect, useState } from 'react'
 import { Button, Col, Row } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
 
 export const LocationForm = ({ onSubmit }) => {
     const [location, setLocation] = useState('')
+    const inputRef = createRef()
+
+    useEffect(() => {
+        inputRef.current.focus()
+    }, [])
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -23,6 +28,7 @@ export const LocationForm = ({ onSubmit }) => {
                             aria-label='location input'
                             onChange={event => setLocation(event.target.value)}
                             value={location}
+                            ref={inputRef}
                         />
                     </Col>
                     <Col xs={2}>
