@@ -41,7 +41,7 @@ const App = () => {
         }
 
         dispatch({
-            type: 'success',
+            type: 'resolved',
             temperatures: {
                 yesterday: weathers.yesterday.location.values[0].temp,
                 today: weathers.today.location.values[0].temp,

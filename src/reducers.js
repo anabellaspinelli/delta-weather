@@ -15,7 +15,27 @@ export const temperatureReducer = (state, action) => {
             }
         }
 
-        case 'success': {
+        case 'resolved': {
+            const { temperatures } = action
+            const { yesterday, today } = temperatures
+
+            if (!today || !yesterday) {
+                return {
+                    ...state,
+                    status: 'errored',
+                    error: {
+                        message: `Invalid temperature:  ${JSON.stringify(
+                            {
+                                yesterday,
+                                today,
+                            },
+                            null,
+                            4,
+                        )}`,
+                    },
+                }
+            }
+
             return {
                 ...state,
                 status: 'resolved',

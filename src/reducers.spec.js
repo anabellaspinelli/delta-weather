@@ -25,10 +25,10 @@ describe('temperature reducer', () => {
         expect(temperatureReducer(prevState, action)).toEqual(expectedState)
     })
 
-    test('action type: success', () => {
+    test('action type: resolved', () => {
         const prevState = { ...initialState }
         const action = {
-            type: 'success',
+            type: 'resolved',
             locationName: 'Buenos Aires, Argentina',
             temperatures: {
                 today: 24,
