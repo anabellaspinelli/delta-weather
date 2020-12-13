@@ -18,7 +18,7 @@ export const LocationForm = ({ onSubmit }) => {
                     <Col xs={8} offset={2}>
                         <Form.Control
                             type='text'
-                            placeholder='Try "Barcelona" or "Buenos Aires"...'
+                            placeholder='Try "Barcelona" or "Berlin"...'
                             size='lg'
                             aria-label='location input'
                             onChange={event => setLocation(event.target.value)}

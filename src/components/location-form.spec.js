@@ -28,7 +28,7 @@ test('renders the location form', async () => {
                   <input
                     aria-label="location input"
                     class="form-control form-control-lg"
-                    placeholder="Try \\"Barcelona\\" or \\"Buenos Aires\\"..."
+                    placeholder="Try \\"Barcelona\\" or \\"Berlin\\"..."
                     type="text"
                     value=""
                   />
@@ -62,9 +62,7 @@ test('renders the location form', async () => {
 
     expect(locationFormProps.onSubmit).not.toHaveBeenCalled()
 
-    const searchInput = getByPlaceholderText(
-        /Try "Barcelona" or "Buenos Aires".../,
-    )
+    const searchInput = getByPlaceholderText(/Try "Barcelona" or "Berlin".../)
 
     userEvent.type(searchInput, 'la plata')
     fireEvent.submit(searchInput)
