@@ -1,7 +1,10 @@
-const WEATHER_API_PROXY = 'http://localhost:3001/weather'
+const DELTA_WEATHER_PROXY_BASE_URL =
+    process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3001'
+        : 'https://delta-weather-proxy.herokuapp.com'
 
 const getWeather = async (location, period = 'today') => {
-    const url = new URL(`${WEATHER_API_PROXY}`)
+    const url = new URL(`${DELTA_WEATHER_PROXY_BASE_URL}/weather`)
     const params = {
         period,
         location,
