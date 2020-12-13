@@ -12,41 +12,39 @@ test('renders the location form', async () => {
 
     expect(container).toMatchInlineSnapshot(`
         <div>
-          <div
+          <form
+            class=""
+            role="search"
             style="margin-top: 32px;"
           >
-            <form
-              class=""
+            <div
+              class="justify-content-md-center row"
             >
               <div
-                class="justify-content-md-center row"
+                class="col-8"
+                offset="2"
               >
-                <div
-                  class="col-8"
-                  offset="2"
-                >
-                  <input
-                    aria-label="location input"
-                    class="form-control form-control-lg"
-                    placeholder="Try \\"Barcelona\\" or \\"Berlin\\"..."
-                    type="text"
-                    value=""
-                  />
-                </div>
-                <div
-                  class="col-2"
-                >
-                  <button
-                    aria-label="get weather"
-                    class="btn btn-primary btn-lg"
-                    type="submit"
-                  >
-                    Get weather!
-                  </button>
-                </div>
+                <input
+                  aria-label="location input"
+                  class="form-control form-control-lg"
+                  placeholder="Try \\"Barcelona\\" or \\"Berlin\\"..."
+                  type="text"
+                  value=""
+                />
               </div>
-            </form>
-          </div>
+              <div
+                class="col-2"
+              >
+                <button
+                  aria-label="get weather"
+                  class="btn btn-primary btn-lg"
+                  type="submit"
+                >
+                  Get weather!
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
     `)
 })

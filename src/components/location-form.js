@@ -17,34 +17,36 @@ export const LocationForm = ({ onSubmit }) => {
     }
 
     return (
-        <div style={{ marginTop: '32px' }}>
-            <Form onSubmit={handleSubmit}>
-                <Row className='justify-content-md-center'>
-                    <Col xs={8} offset={2}>
-                        <Form.Control
-                            type='text'
-                            placeholder='Try "Barcelona" or "Berlin"...'
-                            size='lg'
-                            aria-label='location input'
-                            onChange={event => setLocation(event.target.value)}
-                            value={location}
-                            ref={inputRef}
-                        />
-                    </Col>
-                    <Col xs={2}>
-                        <Button
-                            size='lg'
-                            variant='primary'
-                            type='submit'
-                            aria-label='get weather'
-                            onClick={handleSubmit}
-                        >
-                            Get weather!
-                        </Button>
-                    </Col>
-                </Row>
-            </Form>
-        </div>
+        <Form
+            onSubmit={handleSubmit}
+            role='search'
+            style={{ marginTop: '32px' }}
+        >
+            <Row className='justify-content-md-center'>
+                <Col xs={8} offset={2}>
+                    <Form.Control
+                        type='text'
+                        placeholder='Try "Barcelona" or "Berlin"...'
+                        size='lg'
+                        aria-label='location input'
+                        onChange={event => setLocation(event.target.value)}
+                        value={location}
+                        ref={inputRef}
+                    />
+                </Col>
+                <Col xs={2}>
+                    <Button
+                        size='lg'
+                        variant='primary'
+                        type='submit'
+                        aria-label='get weather'
+                        onClick={handleSubmit}
+                    >
+                        Get weather!
+                    </Button>
+                </Col>
+            </Row>
+        </Form>
     )
 }
 

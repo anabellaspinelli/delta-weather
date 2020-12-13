@@ -17,7 +17,8 @@ const WeatherTitle = styled.p`
 
 const App = () => {
     const [state, dispatch] = React.useReducer(temperatureReducer, initialState)
-    const handleSubmit = async location => {
+
+    const handleFormSubmit = async location => {
         dispatch({ type: 'started' })
         const weathers = await getAllWeathers(location)
         if (weathers.error) {
@@ -40,7 +41,7 @@ const App = () => {
             <h1 style={{ textAlign: 'center', fontSize: '60pt' }}>
                 <strong>Delta</strong>Weather
             </h1>
-            <LocationForm onSubmit={handleSubmit} />
+            <LocationForm onSubmit={handleFormSubmit} />
 
             {state.status === 'errored' && (
                 <ErrorBox errorMessage={state.error.message} />
@@ -48,8 +49,15 @@ const App = () => {
 
             {state.status === 'pending' && (
                 <div className='d-flex justify-content-center m-5'>
-                    <Spinner animation='border' role='status' variant='primary'>
-                        <span className='sr-only'>Loading the weather...</span>
+                    <Spinner
+                        animation='border'
+                        role='status'
+                        variant='primary'
+                        aria-live='polite'
+                    >
+                        <span className='sr-only' name='loading'>
+                            Loading the weather...
+                        </span>
                     </Spinner>
                 </div>
             )}
