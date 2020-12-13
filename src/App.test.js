@@ -37,6 +37,7 @@ test('shows the temperature result in the given location', async () => {
         fireEvent.submit(searchInput)
     })
 
+    expect(getByText('15 ºC'))
     expect(getByText("5ºC above yesterday's"))
 })
 

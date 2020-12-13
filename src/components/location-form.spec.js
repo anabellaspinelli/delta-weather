@@ -21,8 +21,7 @@ test('renders the location form', async () => {
               class="justify-content-md-center row"
             >
               <div
-                class="col-8"
-                offset="2"
+                class="col-md-6 col-8 offset-md-2"
               >
                 <input
                   aria-label="location input"
@@ -33,11 +32,11 @@ test('renders the location form', async () => {
                 />
               </div>
               <div
-                class="col-2"
+                class="col"
               >
                 <button
                   aria-label="get weather"
-                  class="btn btn-primary btn-lg"
+                  class="btn btn-dark btn-lg"
                   type="submit"
                 >
                   Get weather!

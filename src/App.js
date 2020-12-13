@@ -2,17 +2,31 @@ import React from 'react'
 import { Container, Spinner } from 'react-bootstrap'
 import styled from 'styled-components'
 import { ErrorBox } from './components/error-box'
-// import { WeatherBox } from './components/weather-box'
 import { LocationForm } from './components/location-form'
-import './index.css'
 import { getAllWeathers } from './lib/transport'
 import { initialState, temperatureReducer } from './reducers'
 import { Delta } from './components/delta'
+import { getHue } from './lib/utils'
+
+const WeatherBox = styled.div`
+    text-align: center;
+    margin-top: 32px;
+    border-radius: 16px;
+    padding: 16px 0 32px 0;
+    background: linear-gradient(
+        20deg,
+        hsl(${props => props.hue}, 60%, 65%, 0.5),
+        hsl(${props => props.hue - 305}, 64%, 60%, 0.5)
+    );
+`
 
 const WeatherTitle = styled.p`
     font-size: 20pt;
-    text-align: center;
     padding-top: 32px;
+`
+
+const Temperature = styled.h2`
+    font-size: 60pt;
 `
 
 const App = () => {
@@ -63,14 +77,19 @@ const App = () => {
             )}
 
             {state.status === 'resolved' && (
-                <>
+                <WeatherBox
+                    hue={getHue(
+                        state.temperatures.yesterday,
+                        state.temperatures.today,
+                    )}
+                >
                     <WeatherTitle>
                         The temperature for{' '}
                         <strong>{state.locationName}</strong> is
                     </WeatherTitle>
+                    <Temperature>{`${state.temperatures.today} ºC`}</Temperature>
                     <Delta temperatures={state.temperatures} />
-                    {/* <WeatherBox temperatures={state.temperatures} /> */}
-                </>
+                </WeatherBox>
             )}
         </Container>
     )

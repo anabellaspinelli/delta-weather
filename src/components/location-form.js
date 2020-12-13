@@ -23,7 +23,7 @@ export const LocationForm = ({ onSubmit }) => {
             style={{ marginTop: '32px' }}
         >
             <Row className='justify-content-md-center'>
-                <Col xs={8} offset={2}>
+                <Col md={{ span: 6, offset: 2 }} xs={{ span: 8 }}>
                     <Form.Control
                         type='text'
                         placeholder='Try "Barcelona" or "Berlin"...'
@@ -34,10 +34,10 @@ export const LocationForm = ({ onSubmit }) => {
                         ref={inputRef}
                     />
                 </Col>
-                <Col xs={2}>
+                <Col>
                     <Button
                         size='lg'
-                        variant='primary'
+                        variant='dark'
                         type='submit'
                         aria-label='get weather'
                         onClick={handleSubmit}
