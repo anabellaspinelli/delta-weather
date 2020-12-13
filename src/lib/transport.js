@@ -11,7 +11,11 @@ const getWeather = async (location, period = 'today') => {
 
     const response = await fetch(url)
     const body = await response.json()
-    console.log({ body })
+
+    if (process.env.NODE_ENV === 'development') {
+        console.log({ body })
+    }
+
     return body
 }
 
