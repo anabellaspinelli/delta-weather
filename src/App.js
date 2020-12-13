@@ -2,16 +2,17 @@ import React from 'react'
 import { Container, Spinner } from 'react-bootstrap'
 import styled from 'styled-components'
 import { ErrorBox } from './components/error-box'
-import { WeatherBox } from './components/weather-box'
+// import { WeatherBox } from './components/weather-box'
 import { LocationForm } from './components/location-form'
 import './index.css'
 import { getAllWeathers } from './lib/transport'
 import { initialState, temperatureReducer } from './reducers'
+import { Delta } from './components/delta'
 
 const WeatherTitle = styled.p`
     font-size: 20pt;
     text-align: center;
-    padding: 32px 0;
+    padding-top: 32px;
 `
 
 const App = () => {
@@ -37,7 +38,7 @@ const App = () => {
     return (
         <Container className='App'>
             <h1 style={{ textAlign: 'center', fontSize: '60pt' }}>
-                More or Less Weather
+                <strong>Delta</strong>Weather
             </h1>
             <LocationForm onSubmit={handleSubmit} />
 
@@ -59,7 +60,8 @@ const App = () => {
                         The temperature for{' '}
                         <strong>{state.locationName}</strong> is
                     </WeatherTitle>
-                    <WeatherBox temperatures={state.temperatures} />
+                    <Delta temperatures={state.temperatures} />
+                    {/* <WeatherBox temperatures={state.temperatures} /> */}
                 </>
             )}
         </Container>
