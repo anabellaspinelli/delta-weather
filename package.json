@@ -20,8 +20,8 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "lint": "eslint .gitignore .",
-        "format": "yarn lint src --fix && prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
+        "lint": "eslint --ignore-path .gitignore --quiet .",
+        "format": "yarn lint --fix && prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
         "pre-commit": "yarn format && yarn test"
     },
     "husky": {
