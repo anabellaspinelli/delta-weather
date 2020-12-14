@@ -2,6 +2,14 @@ import PropTypes from 'prop-types'
 import React, { createRef, useEffect, useState } from 'react'
 import { Button, Col, Row } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
+import styled from 'styled-components'
+
+const ResponsiveButton = styled(Button)`
+    @media (max-width: 768px) {
+        width: 100%;
+        margin-top: 16px;
+    }
+`
 
 export const LocationForm = ({ onSubmit }) => {
     const [location, setLocation] = useState('')
@@ -23,7 +31,7 @@ export const LocationForm = ({ onSubmit }) => {
             style={{ marginTop: '32px' }}
         >
             <Row className='justify-content-md-center'>
-                <Col md={{ span: 6, offset: 2 }} xs={{ span: 8 }}>
+                <Col md={{ span: 6, offset: 2 }} xs={{ span: 12 }}>
                     <Form.Control
                         type='text'
                         placeholder='Try "Barcelona" or "Berlin"...'
@@ -35,7 +43,7 @@ export const LocationForm = ({ onSubmit }) => {
                     />
                 </Col>
                 <Col>
-                    <Button
+                    <ResponsiveButton
                         size='lg'
                         variant='dark'
                         type='submit'
@@ -43,7 +51,7 @@ export const LocationForm = ({ onSubmit }) => {
                         onClick={handleSubmit}
                     >
                         Get weather!
-                    </Button>
+                    </ResponsiveButton>
                 </Col>
             </Row>
         </Form>

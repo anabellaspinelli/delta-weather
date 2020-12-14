@@ -2,8 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const DeltaText = styled.h2`
-    font-size: 40pt;
+const DeltaText = styled.p`
+    font-size: 4rem;
+
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
 `
 
 export const Delta = ({ temperatures }) => {
