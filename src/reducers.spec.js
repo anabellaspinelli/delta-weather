@@ -48,6 +48,28 @@ describe('temperature reducer', () => {
         expect(temperatureReducer(prevState, action)).toEqual(expectedState)
     })
 
+    test('action type: resolved, with null values', () => {
+        const prevState = { ...initialState }
+        const action = {
+            type: 'resolved',
+            locationName: 'Buenos Aires, Argentina',
+            temperatures: {
+                today: 24,
+                yesterday: null,
+            },
+        }
+        const expectedState = {
+            status: 'errored',
+            locationName: null,
+            temperatures: null,
+            error: {
+                message: 'Invalid temperature. Today: 24, yesterday: null',
+            },
+        }
+
+        expect(temperatureReducer(prevState, action)).toEqual(expectedState)
+    })
+
     test('action type: started', () => {
         const prevState = { ...initialState }
         const action = {

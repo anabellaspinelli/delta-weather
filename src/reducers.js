@@ -24,14 +24,7 @@ export const temperatureReducer = (state, action) => {
                     ...state,
                     status: 'errored',
                     error: {
-                        message: `Invalid temperature:  ${JSON.stringify(
-                            {
-                                yesterday,
-                                today,
-                            },
-                            null,
-                            4,
-                        )}`,
+                        message: `Invalid temperature. Today: ${today}, yesterday: ${yesterday}`,
                     },
                 }
             }
