@@ -19,7 +19,7 @@ export const temperatureReducer = (state, action) => {
             const { temperatures, locationName } = action
             const { yesterday, today } = temperatures
 
-            if (!today || !yesterday) {
+            if ((!today && today !== 0) || (!yesterday && yesterday !== 0)) {
                 return {
                     ...state,
                     status: 'errored',
