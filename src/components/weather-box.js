@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import { getHue } from '../lib/utils'
-import { Delta } from './delta'
 
 const WeatherTitle = styled.p`
     font-size: 2rem;
@@ -38,21 +36,24 @@ const WeatherContainer = styled.div`
 export const WeatherBox = ({ temperatures, locationName }) => {
     return (
         <WeatherContainer
-            hue={getHue(temperatures.yesterday, temperatures.today)}
+        // hue={getHue(temperatures.yesterday, temperatures.today)}
         >
             <WeatherTitle>
-                The temperature for <strong>{locationName}</strong> is
+                The historical temperature for this day in{' '}
+                <strong>{locationName}</strong> is
             </WeatherTitle>
-            <Temperature>{`${temperatures.today} ºC`}</Temperature>
-            <Delta temperatures={temperatures} />
+            <Temperature>{`${temperatures[0].tempmax} ºC`}</Temperature>
         </WeatherContainer>
     )
 }
 
 WeatherBox.propTypes = {
-    temperatures: PropTypes.shape({
-        yesterday: PropTypes.number.isRequired,
-        today: PropTypes.number.isRequired,
-    }).isRequired,
+    temperatures: PropTypes.arrayOf(
+        PropTypes.shape({
+            datetime: PropTypes.string,
+            tempmax: PropTypes.number,
+            tempmin: PropTypes.number,
+        }),
+    ).isRequired,
     locationName: PropTypes.string,
 }

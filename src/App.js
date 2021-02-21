@@ -26,13 +26,16 @@ const App = () => {
             return
         }
 
+        const temperatures = weathers.days.map(day => ({
+            datetime: day.datetime,
+            tempmax: day.tempmax,
+            tempmin: day.tempmin,
+        }))
+
         dispatch({
             type: 'resolved',
-            temperatures: {
-                yesterday: weathers.yesterday.location.values[0].temp,
-                today: weathers.today.location.values[0].temp,
-            },
-            locationName: weathers.today.location.name,
+            temperatures,
+            locationName: weathers.resolvedAddress,
         })
     }
 

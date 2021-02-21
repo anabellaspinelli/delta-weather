@@ -3,10 +3,9 @@ const DELTA_WEATHER_PROXY_BASE_URL =
         ? 'http://localhost:3001'
         : 'https://delta-weather-proxy.herokuapp.com'
 
-const getWeather = async (location, period = 'today') => {
+const getWeather = async location => {
     const url = new URL(`${DELTA_WEATHER_PROXY_BASE_URL}/weather`)
     const params = {
-        period,
         location,
     }
 
@@ -24,18 +23,13 @@ const getWeather = async (location, period = 'today') => {
 
 export const getAllWeathers = async location => {
     try {
-        const yesterday = await getWeather(location, 'yesterday')
-        const today = await getWeather(location, 'today')
+        const response = await getWeather(location)
 
-        if (yesterday.errorCode) {
-            return { error: yesterday }
+        if (response.errorCode) {
+            return { error: response }
         }
 
-        if (today.errorCode) {
-            return { error: today }
-        }
-
-        return { yesterday, today }
+        return response
     } catch (error) {
         return { error }
     }
