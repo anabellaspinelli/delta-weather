@@ -4,7 +4,7 @@ const DELTA_WEATHER_PROXY_BASE_URL =
         : 'https://delta-weather-proxy.herokuapp.com'
 
 const getWeather = async location => {
-    const url = new URL(`${DELTA_WEATHER_PROXY_BASE_URL}/weather`)
+    const url = new URL(`${DELTA_WEATHER_PROXY_BASE_URL}/weather-comparison`)
     const params = {
         location,
     }

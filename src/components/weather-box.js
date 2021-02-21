@@ -76,14 +76,13 @@ export const WeatherBox = ({ days, locationName }) => {
                             visible={true}
                             placement='bottom'
                             content='You are here'
+                            key={day.datetime}
                         >
-                            <Day key={day.datetime} temp={day.temp}>
+                            <Day temp={day.temp}>
                                 <Year>
                                     {new Date(day.datetime).getFullYear()}
                                 </Year>
-                                <Temperature
-                                    key={day.datetime}
-                                >{`${day.temp} ºC`}</Temperature>
+                                <Temperature>{`${day.temp} ºC`}</Temperature>
                             </Day>
                         </Tippy>
                     ) : (
