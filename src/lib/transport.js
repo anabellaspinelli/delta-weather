@@ -5,8 +5,16 @@ const DELTA_WEATHER_PROXY_BASE_URL =
 
 const getWeather = async location => {
     const url = new URL(`${DELTA_WEATHER_PROXY_BASE_URL}/weather-comparison`)
+
+    const today = new Date(Date.now())
+    const year = today.getFullYear()
+    const day = today.getDate()
+    const month = today.getMonth() + 1
+    const date = `${year}-${month}-${day}`
+
     const params = {
         location,
+        date,
     }
 
     url.search = new URLSearchParams(params).toString()
