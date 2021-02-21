@@ -2,14 +2,19 @@ export const getDelta = (yesterdayTemp, todayTemp) => {
     return Math.trunc(todayTemp - yesterdayTemp)
 }
 
-export const getHue = (yesterdayTemp, todayTemp) => {
-    const delta = getDelta(yesterdayTemp, todayTemp)
+export const getHue = days => {
+    const hasNegativeTemps = days.find(day => day.temp < 0)
+    const hasPositiveTemps = days.find(day => day.temp > 0)
 
-    if (delta === 0) {
+    if (hasNegativeTemps && hasPositiveTemps) {
         return 100
     }
 
-    return delta > 0 ? 360 : 200
+    if (hasPositiveTemps) {
+        return 360
+    }
+
+    return 200
 }
 
 export const sortDays = days => {

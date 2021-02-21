@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css' // optional
+import { getHue } from '../lib/utils'
 
 const WeatherContainer = styled.div`
     text-align: center;
@@ -24,7 +25,12 @@ const WeatherContainer = styled.div`
 
 const DaysSection = styled.section`
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
+
+    @media (max-width: 768px) {
+        justify-content: space-around;
+    }
 `
 
 const WeatherTitle = styled.p`
@@ -35,17 +41,25 @@ const WeatherTitle = styled.p`
 const Day = styled.div`
     border: 3px solid white;
     border-radius: 15px;
-    padding: 10px;
+    padding: 12px;
+    margin-top: 12px;
     background: rgba(
-        255,
-        00,
-        00,
-        ${({ temp }) => Math.min(Math.abs(temp / 75), 1)}
+        ${({ temp }) => {
+            const opacity = Math.min(Math.abs(temp / 100), 1)
+            const color = temp > 0 ? '255, 0, 0' : '30, 144, 255'
+
+            return `${color}, ${opacity}`
+        }}
     );
+
+    @media (max-width: 768px) {
+        flex-grow: 1;
+        margin: 12px 6px;
+    }
 `
 
 const Temperature = styled.p`
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 900;
 
     ${'' /* @media (max-width: 768px) {
@@ -54,17 +68,13 @@ const Temperature = styled.p`
 `
 
 const Year = styled.h3`
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: 500;
 `
 
 export const WeatherBox = ({ days, locationName }) => {
-    console.log({ days })
     return (
-        <WeatherContainer
-            // hue={getHue(temperatures.yesterday, temperatures.today)}
-            hue={360}
-        >
+        <WeatherContainer hue={getHue(days)}>
             <WeatherTitle>
                 The historical temperature for this day in{' '}
                 <strong>{locationName}</strong> is
