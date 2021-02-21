@@ -50,7 +50,7 @@ export const LocationForm = ({ onSubmit }) => {
                         aria-label='get weather'
                         onClick={handleSubmit}
                     >
-                        Get weather!
+                        Search!
                     </ResponsiveButton>
                 </Col>
             </Row>
