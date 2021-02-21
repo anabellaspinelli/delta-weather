@@ -16,7 +16,7 @@ export const temperatureReducer = (state, action) => {
         }
 
         case 'resolved': {
-            const { temperatures, locationName } = action
+            const { days, locationName } = action
 
             // if ((!today && today !== 0) || (!yesterday && yesterday !== 0)) {
             //     return {
@@ -31,7 +31,7 @@ export const temperatureReducer = (state, action) => {
             return {
                 ...state,
                 status: 'resolved',
-                temperatures,
+                days,
                 locationName,
             }
         }

@@ -11,3 +11,7 @@ export const getHue = (yesterdayTemp, todayTemp) => {
 
     return delta > 0 ? 360 : 200
 }
+
+export const sortDays = days => {
+    return days.sort((a, b) => new Date(a.datetime) - new Date(b.datetime))
+}

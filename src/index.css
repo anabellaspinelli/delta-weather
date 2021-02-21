@@ -17,3 +17,11 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
 }
+
+.tippy-box {
+    background-color: crimson !important;
+}
+
+.tippy-arrow {
+    color: crimson !important;
+}

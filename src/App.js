@@ -6,6 +6,7 @@ import { LocationForm } from './components/location-form'
 import { getAllWeathers } from './lib/transport'
 import { initialState, temperatureReducer } from './reducers'
 import { WeatherBox } from './components/weather-box'
+import { sortDays } from './lib/utils'
 
 const PageTitle = styled.h1`
     text-align: center;
@@ -26,16 +27,15 @@ const App = () => {
             return
         }
 
-        const temperatures = weathers.days.map(day => ({
+        const days = sortDays(weathers.days).map(day => ({
             datetime: day.datetime,
-            tempmax: day.tempmax,
-            tempmin: day.tempmin,
+            temp: day.temp,
         }))
 
         dispatch({
             type: 'resolved',
-            temperatures,
-            locationName: weathers.resolvedAddress,
+            days,
+            locationName: weathers.address,
         })
     }
 
@@ -67,7 +67,7 @@ const App = () => {
 
             {state.status === 'resolved' && (
                 <WeatherBox
-                    temperatures={state.temperatures}
+                    days={state.days}
                     locationName={state.locationName}
                 />
             )}

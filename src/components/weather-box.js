@@ -2,19 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-const WeatherTitle = styled.p`
-    font-size: 2rem;
-    padding-top: 32px;
-`
-
-const Temperature = styled.p`
-    font-size: 6rem;
-    font-weight: 900;
-
-    @media (max-width: 768px) {
-        font-size: 5rem;
-    }
-`
+import Tippy from '@tippyjs/react'
+import 'tippy.js/dist/tippy.css' // optional
 
 const WeatherContainer = styled.div`
     text-align: center;
@@ -33,22 +22,86 @@ const WeatherContainer = styled.div`
     }
 `
 
-export const WeatherBox = ({ temperatures, locationName }) => {
+const DaysSection = styled.section`
+    display: flex;
+    justify-content: space-evenly;
+`
+
+const WeatherTitle = styled.p`
+    font-size: 2rem;
+    padding-top: 32px;
+`
+
+const Day = styled.div`
+    border: 3px solid white;
+    border-radius: 15px;
+    padding: 10px;
+    background: rgba(
+        255,
+        00,
+        00,
+        ${({ temp }) => Math.min(Math.abs(temp / 75), 1)}
+    );
+`
+
+const Temperature = styled.p`
+    font-size: 3rem;
+    font-weight: 900;
+
+    ${'' /* @media (max-width: 768px) {
+        font-size: 4rem;
+    } */}
+`
+
+const Year = styled.h3`
+    font-size: 2rem;
+    font-weight: 500;
+`
+
+export const WeatherBox = ({ days, locationName }) => {
+    console.log({ days })
     return (
         <WeatherContainer
-        // hue={getHue(temperatures.yesterday, temperatures.today)}
+            // hue={getHue(temperatures.yesterday, temperatures.today)}
+            hue={360}
         >
             <WeatherTitle>
                 The historical temperature for this day in{' '}
                 <strong>{locationName}</strong> is
             </WeatherTitle>
-            <Temperature>{`${temperatures[0].tempmax} ºC`}</Temperature>
+            <DaysSection>
+                {days.map((day, index) =>
+                    index === days.length - 1 ? (
+                        <Tippy
+                            visible={true}
+                            placement='bottom'
+                            content='You are here'
+                        >
+                            <Day key={day.datetime} temp={day.temp}>
+                                <Year>
+                                    {new Date(day.datetime).getFullYear()}
+                                </Year>
+                                <Temperature
+                                    key={day.datetime}
+                                >{`${day.temp} ºC`}</Temperature>
+                            </Day>
+                        </Tippy>
+                    ) : (
+                        <Day key={day.datetime} temp={day.temp}>
+                            <Year>{new Date(day.datetime).getFullYear()}</Year>
+                            <Temperature
+                                key={day.datetime}
+                            >{`${day.temp} ºC`}</Temperature>
+                        </Day>
+                    ),
+                )}
+            </DaysSection>
         </WeatherContainer>
     )
 }
 
 WeatherBox.propTypes = {
-    temperatures: PropTypes.arrayOf(
+    days: PropTypes.arrayOf(
         PropTypes.shape({
             datetime: PropTypes.string,
             tempmax: PropTypes.number,
