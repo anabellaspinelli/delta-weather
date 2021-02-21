@@ -16,6 +16,13 @@ const PageTitle = styled.h1`
     }
 `
 
+const Intro = styled.p`
+    color: gray;
+    max-width: 80%;
+    margin: 0 auto;
+    text-align: center;
+`
+
 const App = () => {
     const [state, dispatch] = React.useReducer(temperatureReducer, initialState)
 
@@ -44,6 +51,12 @@ const App = () => {
             <PageTitle>
                 <strong>Delta</strong>Weather
             </PageTitle>
+            <Intro>
+                This application can be used to query the historical records for
+                temperature on the current date in the past 5 decades. It is
+                meant as a proof of concept on what can be observed when given
+                access to often obscure data.
+            </Intro>
             <LocationForm onSubmit={handleFormSubmit} />
 
             {state.status === 'errored' && (
