@@ -45,11 +45,11 @@ const Day = styled.div`
     margin-top: 12px;
     background: rgba(
         ${({ temp }) => {
-        const opacity = Math.min(Math.abs(temp / 100), 1)
-        const color = temp > 0 ? '255, 0, 0' : '30, 144, 255'
+            const opacity = Math.min(Math.abs(temp / 100), 1)
+            const color = temp > 0 ? '255, 0, 0' : '30, 144, 255'
 
-        return `${color}, ${opacity}`
-    }}
+            return `${color}, ${opacity}`
+        }}
     );
 
     @media (max-width: 768px) {
@@ -76,8 +76,8 @@ export const WeatherBox = ({ days, locationName }) => {
     return (
         <WeatherContainer hue={getHue(days)}>
             <WeatherTitle>
-                The historical temperature for this day in{' '}
-                <strong>{locationName}</strong> is
+                The temperature for this day in <br />
+                <strong>{locationName}</strong> was
             </WeatherTitle>
             <DaysSection>
                 {days.map((day, index) =>

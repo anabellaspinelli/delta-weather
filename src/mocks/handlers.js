@@ -25,7 +25,8 @@ export const handlers = [
                     },
                     {
                         datetime: '2001-02-21',
-                        temp: location.toLowerCase() === 'estonia' ? -8.8 : 8.8,
+                        temp:
+                            location.toLowerCase() === 'estonia' ? -18.8 : 8.8,
                     },
                     {
                         datetime: '1991-02-21',
@@ -34,11 +35,13 @@ export const handlers = [
                     },
                     {
                         datetime: '1981-02-21',
-                        temp: location.toLowerCase() === 'estonia' ? -3.6 : 3.6,
+                        temp:
+                            location.toLowerCase() === 'estonia' ? -13.6 : 3.6,
                     },
                     {
                         datetime: '1973-02-21',
-                        temp: location.toLowerCase() === 'estonia' ? -7.5 : 7.5,
+                        temp:
+                            location.toLowerCase() === 'estonia' ? -17.5 : 7.5,
                     },
                 ],
             }),

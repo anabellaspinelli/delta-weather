@@ -23,6 +23,12 @@ const Intro = styled.p`
     text-align: center;
 `
 
+const Paragraph = styled.p`
+    color: gray;
+    margin: 0 auto;
+    justify: center;
+`
+
 const App = () => {
     const [state, dispatch] = React.useReducer(temperatureReducer, initialState)
 
@@ -49,7 +55,7 @@ const App = () => {
     return (
         <Container className='App'>
             <PageTitle>
-                <strong>Delta</strong>Weather
+                <strong>Histo</strong>Weather
             </PageTitle>
             <Intro>
                 This application can be used to query the historical records for
@@ -84,6 +90,34 @@ const App = () => {
                     locationName={state.locationName}
                 />
             )}
+            <h3 style={{ marginTop: '48px' }}>Resources</h3>
+            <Paragraph>
+                Read more about global warming and climate change:
+            </Paragraph>
+            <ul>
+                <li>
+                    <a
+                        href='https://www.bbc.com/news/science-environment-24021772'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                    >
+                        What is climate change? A really simple guide, BBC
+                    </a>
+                </li>
+            </ul>
+            <h3 style={{ marginTop: '48px' }}>Acknowledgments</h3>
+            <Paragraph>
+                This app was built using data from the{' '}
+                <a
+                    href='https://www.visualcrossing.com/weather-data'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                >
+                    Visual Crossing Weather API
+                </a>{' '}
+                which was incredibly helpful and easy to use. The free plan is
+                enough for any experiment or personal project.
+            </Paragraph>
         </Container>
     )
 }
