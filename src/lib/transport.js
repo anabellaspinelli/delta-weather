@@ -20,6 +20,9 @@ const getWeather = async location => {
     url.search = new URLSearchParams(params).toString()
 
     const response = await fetch(url)
+    if (response.status === 404) {
+        throw new Error(`Location "${location}" not found!`)
+    }
     const body = await response.json()
 
     if (process.env.NODE_ENV === 'development') {

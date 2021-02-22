@@ -2,9 +2,14 @@ import { rest } from 'msw'
 
 export const handlers = [
     rest.get('*/weather-comparison', (req, res, ctx) => {
-        const location = req.url.searchParams.get('location')
+        const location = req.url.searchParams.get('location').toLowerCase()
+
+        if (location === 'riga') {
+            return res(ctx.status(404))
+        }
+
         const address =
-            location.toLowerCase() === 'estonia'
+            location === 'estonia'
                 ? 'Estonia, the Baltics'
                 : 'Barcelona, Catalunya, Espanya'
 
