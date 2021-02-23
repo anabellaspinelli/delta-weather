@@ -39,7 +39,7 @@ test('renders the location form', async () => {
                   class="sc-bdfBwQ jciSHU btn btn-dark btn-lg"
                   type="submit"
                 >
-                  Get weather!
+                  Search!
                 </button>
               </div>
             </div>

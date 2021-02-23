@@ -11,7 +11,7 @@ test('renders the title', () => {
     const { getByText } = render(<App />)
 
     const title = getByText((content, node) => {
-        const hasText = node => node.textContent === 'DeltaWeather'
+        const hasText = node => node.textContent === 'HistoWeather'
         const nodeHasText = hasText(node)
         const childrenDontHaveText = Array.from(node.children).every(
             child => !hasText(child),
@@ -25,8 +25,15 @@ test('renders the title', () => {
 
 test('shows the temperature result in the given location', async () => {
     getAllWeathers.mockResolvedValue({
-        yesterday: { location: { values: [{ temp: 10 }] } },
-        today: { location: { values: [{ temp: 15 }] } },
+        address: 'La Plata',
+        days: [
+            { datetime: '2021-02-21', temp: 10 },
+            { datetime: '2011-02-21', temp: 11 },
+            { datetime: '2001-02-21', temp: 12 },
+            { datetime: '1991-02-21', temp: 13 },
+            { datetime: '1981-02-21', temp: 14 },
+            { datetime: '1973-02-21', temp: 15 },
+        ],
     })
 
     const { getByText, getByPlaceholderText } = render(<App />)
@@ -37,8 +44,12 @@ test('shows the temperature result in the given location', async () => {
         fireEvent.submit(searchInput)
     })
 
+    expect(getByText('10 ºC'))
+    expect(getByText('11 ºC'))
+    expect(getByText('12 ºC'))
+    expect(getByText('13 ºC'))
+    expect(getByText('14 ºC'))
     expect(getByText('15 ºC'))
-    expect(getByText("5ºC above yesterday's"))
 })
 
 test('shows a pending state while searching', async () => {

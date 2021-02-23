@@ -92,15 +92,17 @@ export const WeatherBox = ({ days, locationName }) => {
                                 <Year>
                                     {new Date(day.datetime).getFullYear()}
                                 </Year>
-                                <Temperature>{`${day.temp} ºC`}</Temperature>
+                                <Temperature>
+                                    {day.temp ? `${day.temp} ºC` : 'No data'}
+                                </Temperature>
                             </Day>
                         </Tippy>
                     ) : (
                         <Day key={day.datetime} temp={day.temp}>
                             <Year>{new Date(day.datetime).getFullYear()}</Year>
-                            <Temperature
-                                key={day.datetime}
-                            >{`${day.temp} ºC`}</Temperature>
+                            <Temperature key={day.datetime}>
+                                {day.temp ? `${day.temp} ºC` : 'No data'}
+                            </Temperature>
                         </Day>
                     ),
                 )}

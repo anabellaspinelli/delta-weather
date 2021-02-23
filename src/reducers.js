@@ -1,6 +1,6 @@
 export const initialState = {
     status: 'idle',
-    temperatures: null,
+    days: null,
     locationName: null,
     error: null,
 }

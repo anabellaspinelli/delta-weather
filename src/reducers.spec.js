@@ -17,7 +17,7 @@ describe('temperature reducer', () => {
         }
         const expectedState = {
             locationName: null,
-            temperatures: null,
+            days: null,
             status: 'errored',
             error: theError,
         }
@@ -30,86 +30,26 @@ describe('temperature reducer', () => {
         const action = {
             type: 'resolved',
             locationName: 'Buenos Aires, Argentina',
-            temperatures: {
-                today: 24,
-                yesterday: 22,
-            },
+            days:[
+                { datetime: '1973-02-21', temp: 15 },
+                { datetime: '1981-02-21', temp: 14 },
+                { datetime: '1991-02-21', temp: 13 },
+                { datetime: '2001-02-21', temp: 12 },
+                { datetime: '2011-02-21', temp: 11 },
+                { datetime: '2021-02-21', temp: 10 }
+            ],
         }
         const expectedState = {
             status: 'resolved',
             locationName: 'Buenos Aires, Argentina',
-            temperatures: {
-                today: 24,
-                yesterday: 22,
-            },
-            error: null,
-        }
-
-        expect(temperatureReducer(prevState, action)).toEqual(expectedState)
-    })
-
-    test('action type: resolved, with null values', () => {
-        const prevState = { ...initialState }
-        const action = {
-            type: 'resolved',
-            locationName: 'Buenos Aires, Argentina',
-            temperatures: {
-                today: 24,
-                yesterday: null,
-            },
-        }
-        const expectedState = {
-            status: 'errored',
-            locationName: null,
-            temperatures: null,
-            error: {
-                message: 'Invalid temperature. Today: 24, yesterday: null',
-            },
-        }
-
-        expect(temperatureReducer(prevState, action)).toEqual(expectedState)
-    })
-
-    test('action type: resolved, with zero today value', () => {
-        const prevState = { ...initialState }
-        const action = {
-            type: 'resolved',
-            locationName: 'Buenos Aires, Argentina',
-            temperatures: {
-                today: 0,
-                yesterday: 24,
-            },
-        }
-        const expectedState = {
-            status: 'resolved',
-            locationName: 'Buenos Aires, Argentina',
-            temperatures: {
-                today: 0,
-                yesterday: 24,
-            },
-            error: null,
-        }
-
-        expect(temperatureReducer(prevState, action)).toEqual(expectedState)
-    })
-
-    test('action type: resolved, with zero yesterday value', () => {
-        const prevState = { ...initialState }
-        const action = {
-            type: 'resolved',
-            locationName: 'Buenos Aires, Argentina',
-            temperatures: {
-                today: 12,
-                yesterday: 0,
-            },
-        }
-        const expectedState = {
-            status: 'resolved',
-            locationName: 'Buenos Aires, Argentina',
-            temperatures: {
-                today: 12,
-                yesterday: 0,
-            },
+            days:[
+                { datetime: '1973-02-21', temp: 15 },
+                { datetime: '1981-02-21', temp: 14 },
+                { datetime: '1991-02-21', temp: 13 },
+                { datetime: '2001-02-21', temp: 12 },
+                { datetime: '2011-02-21', temp: 11 },
+                { datetime: '2021-02-21', temp: 10 }
+            ],
             error: null,
         }
 
@@ -125,7 +65,7 @@ describe('temperature reducer', () => {
         const expectedState = {
             status: 'pending',
             locationName: null,
-            temperatures: null,
+            days: null,
             error: null,
         }
 
