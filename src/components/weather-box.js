@@ -72,6 +72,19 @@ const Year = styled.h3`
     font-weight: 500;
 `
 
+const MinMaxWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`
+
+const MinMax = styled.div`
+    font-size: 1rem;
+    flex: 1 1 auto;
+    font-weight: 300;
+    border-radius: 8px;
+`
+
 export const WeatherBox = ({ days, locationName }) => {
     return (
         <WeatherContainer hue={getHue(days)}>
@@ -92,17 +105,23 @@ export const WeatherBox = ({ days, locationName }) => {
                                 <Year>
                                     {new Date(day.datetime).getFullYear()}
                                 </Year>
-                                <Temperature>
-                                    {day.temp !== null ? `${day.temp} ºC` : 'No data'}
-                                </Temperature>
+                                <Temperature>{`${day.temp} ºC`}</Temperature>
+                                <MinMaxWrapper>
+                                    <MinMax>{`Min ${day.tempmin} ºC`}</MinMax>
+                                    <MinMax>{`Max ${day.tempmax} ºC`}</MinMax>
+                                </MinMaxWrapper>
                             </Day>
                         </Tippy>
                     ) : (
                         <Day key={day.datetime} temp={day.temp}>
                             <Year>{new Date(day.datetime).getFullYear()}</Year>
-                            <Temperature>
-                                {day.temp !== null ? `${day.temp} ºC` : 'No data'}
-                            </Temperature>
+                            <Temperature
+                                key={day.datetime}
+                            >{`${day.temp} ºC`}</Temperature>
+                            <MinMaxWrapper>
+                                <MinMax>{`Min ${day.tempmin} ºC`}</MinMax>
+                                <MinMax>{`Max ${day.tempmax} ºC`}</MinMax>
+                            </MinMaxWrapper>
                         </Day>
                     ),
                 )}
