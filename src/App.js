@@ -57,6 +57,8 @@ const App = () => {
         const days = sortDays(weathers.days).map(day => ({
             datetime: day.datetime,
             temp: day.temp,
+            tempmax: day.tempmax,
+            tempmin: day.tempmin,
         }))
 
         dispatch({
@@ -129,6 +131,15 @@ const App = () => {
                                         rel='noopener noreferrer'
                                     >
                                         Global Climate Change – NASA
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        href='https://www.nrdc.org/stories/global-warming-101'
+                                        target='_blank'
+                                        rel='noopener noreferrer'
+                                    >
+                                        Global Warming 101
                                     </a>
                                 </li>
                             </ul>
