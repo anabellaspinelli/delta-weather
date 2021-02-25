@@ -89,7 +89,7 @@ export const WeatherBox = ({ days, locationName }) => {
     return (
         <WeatherContainer hue={getHue(days)}>
             <WeatherTitle>
-                The temperature for this day in <br />
+                The temperature on this day in <br />
                 <strong>{locationName}</strong> was
             </WeatherTitle>
             <DaysSection>
@@ -105,22 +105,52 @@ export const WeatherBox = ({ days, locationName }) => {
                                 <Year>
                                     {new Date(day.datetime).getFullYear()}
                                 </Year>
-                                <Temperature>{`${day.temp} ºC`}</Temperature>
+                                <Temperature>
+                                    {day.temp !== null
+                                        ? `${day.temp} ºC`
+                                        : 'No data'}
+                                </Temperature>
                                 <MinMaxWrapper>
-                                    <MinMax>{`Min ${day.tempmin} ºC`}</MinMax>
-                                    <MinMax>{`Max ${day.tempmax} ºC`}</MinMax>
+                                    <MinMax>
+                                        {`Min ${
+                                            day.tempmin !== null
+                                                ? day.tempmin + 'ºC'
+                                                : 'No data'
+                                        }`}
+                                    </MinMax>
+                                    <MinMax>
+                                        {`Max ${
+                                            day.tempmax !== null
+                                                ? day.tempmax + 'ºC'
+                                                : 'No data'
+                                        }`}
+                                    </MinMax>
                                 </MinMaxWrapper>
                             </Day>
                         </Tippy>
                     ) : (
                         <Day key={day.datetime} temp={day.temp}>
                             <Year>{new Date(day.datetime).getFullYear()}</Year>
-                            <Temperature
-                                key={day.datetime}
-                            >{`${day.temp} ºC`}</Temperature>
+                            <Temperature>
+                                {day.temp !== null
+                                    ? `${day.temp} ºC`
+                                    : 'No data'}
+                            </Temperature>
                             <MinMaxWrapper>
-                                <MinMax>{`Min ${day.tempmin} ºC`}</MinMax>
-                                <MinMax>{`Max ${day.tempmax} ºC`}</MinMax>
+                                <MinMax>
+                                    {`Min ${
+                                        day.tempmin !== null
+                                            ? day.tempmin + 'ºC'
+                                            : 'No data'
+                                    }`}
+                                </MinMax>
+                                <MinMax>
+                                    {`<Max ${
+                                        day.tempmax !== null
+                                            ? day.tempmax + 'ºC'
+                                            : 'No data'
+                                    }`}
+                                </MinMax>
                             </MinMaxWrapper>
                         </Day>
                     ),

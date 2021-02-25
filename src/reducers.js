@@ -18,16 +18,6 @@ export const temperatureReducer = (state, action) => {
         case 'resolved': {
             const { days, locationName } = action
 
-            // if ((!today && today !== 0) || (!yesterday && yesterday !== 0)) {
-            //     return {
-            //         ...state,
-            //         status: 'errored',
-            //         error: {
-            //             message: `Invalid temperature. Today: ${today}, yesterday: ${yesterday}`,
-            //         },
-            //     }
-            // }
-
             return {
                 ...state,
                 status: 'resolved',

@@ -56,9 +56,9 @@ export const handlers = [
                     {
                         datetime: '1973-02-21',
                         temp:
-                            location.toLowerCase() === 'estonia' ? -17.5 : 7.5,
-                        tempmax: 23.5,
-                        tempmin: 14.2,
+                            location.toLowerCase() === 'estonia' ? -17.5 : null,
+                        tempmax: null,
+                        tempmin: null,
                     },
                 ],
             }),

@@ -1,10 +1,3 @@
-// {
-//     status: 'idle',
-//     temperatures: null,
-//     locationName: null,
-//     error: null,
-// }
-
 import { initialState, temperatureReducer } from './reducers'
 
 describe('temperature reducer', () => {
