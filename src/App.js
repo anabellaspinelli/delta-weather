@@ -75,10 +75,9 @@ const App = () => {
                     <strong>Histo</strong>Weather
                 </PageTitle>
                 <Intro>
-                    This application can be used to query the historical records
-                    for temperature on the current date in the past 5 decades.
-                    It is meant as a proof of concept on what can be observed
-                    when given access to often obscure data.
+                    {
+                        "This application can be used to query the historical records for temperature on the current date in the past 5 decades. It is meant as a proof of concept on what we can observe when we're provided with data thats closer to our own day-to-day experience, rather than scientific information that often seems distant and hard to relate to."
+                    }
                 </Intro>
                 <LocationForm onSubmit={handleFormSubmit} />
 

@@ -30,25 +30,25 @@ describe('temperature reducer', () => {
         const action = {
             type: 'resolved',
             locationName: 'Buenos Aires, Argentina',
-            days:[
+            days: [
                 { datetime: '1973-02-21', temp: 15 },
                 { datetime: '1981-02-21', temp: 14 },
                 { datetime: '1991-02-21', temp: 13 },
                 { datetime: '2001-02-21', temp: 12 },
                 { datetime: '2011-02-21', temp: 11 },
-                { datetime: '2021-02-21', temp: 10 }
+                { datetime: '2021-02-21', temp: 10 },
             ],
         }
         const expectedState = {
             status: 'resolved',
             locationName: 'Buenos Aires, Argentina',
-            days:[
+            days: [
                 { datetime: '1973-02-21', temp: 15 },
                 { datetime: '1981-02-21', temp: 14 },
                 { datetime: '1991-02-21', temp: 13 },
                 { datetime: '2001-02-21', temp: 12 },
                 { datetime: '2011-02-21', temp: 11 },
-                { datetime: '2021-02-21', temp: 10 }
+                { datetime: '2021-02-21', temp: 10 },
             ],
             error: null,
         }
