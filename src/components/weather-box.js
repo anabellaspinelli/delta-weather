@@ -145,7 +145,7 @@ export const WeatherBox = ({ days, locationName }) => {
                                     }`}
                                 </MinMax>
                                 <MinMax>
-                                    {`<Max ${
+                                    {`Max ${
                                         day.tempmax !== null
                                             ? day.tempmax + 'ºC'
                                             : 'No data'
