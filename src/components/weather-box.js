@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+import { Bar } from 'react-chartjs-2'
 
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css' // optional
-import { getHue } from '../lib/utils'
+import { getHue, getChartData, getChartOptions } from '../lib/utils'
 
 const WeatherContainer = styled.div`
     text-align: center;
@@ -85,6 +86,13 @@ const MinMax = styled.div`
     border-radius: 8px;
 `
 
+const ChartContainer = styled.div`
+    width: 400px;
+    height: 250px;
+    margin: auto;
+    margin-top: 40px;
+`
+
 export const WeatherBox = ({ days, locationName }) => {
     return (
         <WeatherContainer hue={getHue(days)}>
@@ -156,6 +164,13 @@ export const WeatherBox = ({ days, locationName }) => {
                     ),
                 )}
             </DaysSection>
+
+            <ChartContainer>
+            <Bar
+                options={getChartOptions()}
+                data={getChartData(days)}
+            />
+            </ChartContainer>
         </WeatherContainer>
     )
 }
