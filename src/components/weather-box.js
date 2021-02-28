@@ -3,9 +3,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { Bar, Line } from 'react-chartjs-2'
 
-import { ReactComponent as Telegram } from './assets/telegram.svg'
-import { ReactComponent as Twitter } from './assets/twitter.svg'
-
 const NEGATIVE_TEMP_BG_COLOR = 'rgba(0, 220, 220, 0.15)'
 const NEGATIVE_TEMP_BORDER_COLOR = 'rgba(0, 220, 220, 0.9)'
 
@@ -43,17 +40,6 @@ const DaysSection = styled.section`
 const WeatherTitle = styled.p`
     font-size: 2rem;
     padding-top: 32px;
-`
-
-const ShareSection = styled.section`
-    margin-top: 30px;
-`
-
-const ShareIcons = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-    width: 150px;
-    margin: 0 auto;
 `
 
 const Day = styled.div`
@@ -144,12 +130,9 @@ const MaxTemp = styled.strong`
     }};
 `
 
-export const WeatherBox = ({ days, locationName, searchText }) => {
+export const WeatherBox = ({ days, locationName }) => {
     const hasNegativeTemps = days.find(day => day.temp < 0)
     const hasPositiveTemps = days.find(day => day.temp > 0)
-    const cleanSearchText = (
-        searchText.charAt(0).toUpperCase() + searchText.slice(1)
-    ).trim()
 
     return (
         <WeatherContainer hue={getHue(hasNegativeTemps, hasPositiveTemps)}>
@@ -296,34 +279,6 @@ export const WeatherBox = ({ days, locationName, searchText }) => {
                     temperatures per year
                 </Legend>
             </ChartLegends>
-            <ShareSection>
-                <div>Share this page</div>
-                <ShareIcons>
-                    <a
-                        href={`https://t.me/share/url?url=${encodeURIComponent(
-                            window.location,
-                        )}&text=${encodeURIComponent(
-                            `See the temperature for this day on ${cleanSearchText} in the past 5 decades with Hack The Weather! Try it yourself!`,
-                        )}`}
-                    >
-                        <Telegram
-                            width={30}
-                            height={30}
-                            target='_blank'
-                            rel='noopener noreferrer'
-                        />
-                    </a>
-                    <a
-                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                            `See the temperature for this day on ${cleanSearchText} in the past 5 decades with Hack The Weather! Try it yourself! ➡️`,
-                        )}&url=${encodeURIComponent(window.location)}`}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                    >
-                        <Twitter width={30} height={30} />
-                    </a>
-                </ShareIcons>
-            </ShareSection>
         </WeatherContainer>
     )
 }
@@ -337,5 +292,4 @@ WeatherBox.propTypes = {
         }),
     ).isRequired,
     locationName: PropTypes.string.isRequired,
-    searchText: PropTypes.string.isRequired,
 }
