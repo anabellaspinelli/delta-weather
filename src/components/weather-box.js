@@ -1,11 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import { Bar } from 'react-chartjs-2'
+import { Bar, Line } from 'react-chartjs-2'
+
+const NEGATIVE_TEMP_BG_COLOR = 'rgba(0, 220, 220, 0.3)'
+const NEGATIVE_TEMP_BORDER_COLOR = 'rgba(0, 220, 220, 0.9)'
 
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css' // optional
-import { getHue, getChartData, getChartOptions } from '../lib/utils'
+import { getHue, getBarChartData, getChartOptions } from '../lib/utils'
 
 const WeatherContainer = styled.div`
     text-align: center;
@@ -62,10 +65,6 @@ const Day = styled.div`
 const Temperature = styled.p`
     font-size: 2rem;
     font-weight: 900;
-
-    ${'' /* @media (max-width: 768px) {
-        font-size: 4rem;
-    } */}
 `
 
 const Year = styled.h3`
@@ -87,15 +86,33 @@ const MinMax = styled.div`
 `
 
 const ChartContainer = styled.div`
-    width: 400px;
-    height: 250px;
+    display: flex;
+    justify-content: space-evenly;
     margin: auto;
-    margin-top: 40px;
+    margin-top: 80px;
+    height: 250px;
+    width: 450px;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+`
+
+const BarChart = styled(Bar)`
+    padding: 100px;
+    height: 250px;
+`
+
+const LineChart = styled(Line)`
+    height: 250px;
 `
 
 export const WeatherBox = ({ days, locationName }) => {
+    const hasNegativeTemps = days.find(day => day.temp < 0)
+    const hasPositiveTemps = days.find(day => day.temp > 0)
+
     return (
-        <WeatherContainer hue={getHue(days)}>
+        <WeatherContainer hue={getHue(hasNegativeTemps, hasPositiveTemps)}>
             <WeatherTitle>
                 The temperature on this day in <br />
                 <strong>{locationName}</strong> was
@@ -166,10 +183,93 @@ export const WeatherBox = ({ days, locationName }) => {
             </DaysSection>
 
             <ChartContainer>
-            <Bar
-                options={getChartOptions()}
-                data={getChartData(days)}
-            />
+                <BarChart
+                    options={getChartOptions({
+                        titleText: 'Average Temperature for this day, per year',
+                        legend: { display: false },
+                    })}
+                    data={getBarChartData(days)}
+                />
+                <LineChart
+                    data={{
+                        labels: days.map(d =>
+                            new Date(d.datetime).getFullYear(),
+                        ),
+                        datasets: [
+                            {
+                                data: days.map(d => d.tempmax),
+                                fill: 1,
+                                borderColor: hasNegativeTemps
+                                    ? NEGATIVE_TEMP_BORDER_COLOR
+                                    : '#d22500',
+                                backgroundColor: hasNegativeTemps
+                                    ? NEGATIVE_TEMP_BG_COLOR
+                                    : 'rgba( 226, 111, 45, 0.3)',
+                            },
+                            {
+                                data: days.map(d => d.tempmin),
+                                fill: false,
+                                borderColor: hasNegativeTemps
+                                    ? 'rgba(30, 144, 255, 0.7)'
+                                    : '#ec9f0f',
+                            },
+                        ],
+                        tooltips: {
+                            xPadding: 10,
+                            yPadding: 10,
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return `${tooltipItem.value}°C`
+                                },
+                            },
+                        },
+                        scales: {
+                            xAxes: [
+                                {
+                                    ticks: {
+                                        fontStyle: 'bold',
+                                    },
+                                },
+                            ],
+                            yAxes: [
+                                {
+                                    ticks: {
+                                        fontStyle: 'bold',
+                                        callback: function (value) {
+                                            return `${value} °C`
+                                        },
+                                    },
+                                },
+                            ],
+                        },
+                    }}
+                    options={getChartOptions({
+                        titleText: 'Min and Max temperatures per year',
+                        legend: {
+                            display: true,
+                            labels: {
+                                generateLabels: () => [
+                                    {
+                                        text: 'Min temp.',
+                                        strokeStyle: hasNegativeTemps
+                                            ? NEGATIVE_TEMP_BORDER_COLOR
+                                            : '#d22500',
+                                        fillStyle: hasNegativeTemps
+                                            ? NEGATIVE_TEMP_BG_COLOR
+                                            : 'rgba( 226, 111, 45, 0.3)',
+                                    },
+                                    {
+                                        text: 'Max temp.',
+                                        strokeStyle: hasNegativeTemps
+                                            ? 'rgba(30, 144, 255, 0.7)'
+                                            : '#ec9f0f',
+                                        fillStyle: 'rgba(0, 0, 0, 0)',
+                                    },
+                                ],
+                            },
+                        },
+                    })}
+                />
             </ChartContainer>
         </WeatherContainer>
     )

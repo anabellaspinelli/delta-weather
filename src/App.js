@@ -30,6 +30,16 @@ const Intro = styled.p`
     text-align: center;
 `
 
+const MobileMessage = styled.p`
+    margin-top: 20px;
+    color: gray;
+    font-style: italic;
+
+    @media (min-width: 768px) {
+        display: none;
+    }
+`
+
 const Paragraph = styled.p`
     color: gray;
     margin: 0 auto;
@@ -106,6 +116,10 @@ const App = () => {
                             days={state.days}
                             locationName={state.locationName}
                         />
+                        <MobileMessage>
+                            To see graphs about this data ☝🏻 view this page on a
+                            computer.
+                        </MobileMessage>
                         <section>
                             <h3 style={{ marginTop: '48px' }}>Resources</h3>
                             <Paragraph>

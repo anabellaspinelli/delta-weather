@@ -2,10 +2,7 @@ export const getDelta = (yesterdayTemp, todayTemp) => {
     return Math.trunc(todayTemp - yesterdayTemp)
 }
 
-export const getHue = days => {
-    const hasNegativeTemps = days.find(day => day.temp < 0)
-    const hasPositiveTemps = days.find(day => day.temp > 0)
-
+export const getHue = (hasNegativeTemps, hasPositiveTemps) => {
     if (hasNegativeTemps && hasPositiveTemps) {
         return 100
     }
@@ -32,10 +29,10 @@ export const getBorderColor = temp => {
     const opacity = Math.min(Math.abs(temp / 100), 1)
     const color = temp > 0 ? '255, 0, 0' : '30, 144, 255'
 
-    return `rgba(${color}, ${opacity + 0.15})`
+    return `rgba(${color}, ${opacity + 0.4})`
 }
 
-export const getChartData = days => {
+export const getBarChartData = days => {
     const data = {
         labels: days.map(d => new Date(d.datetime).getFullYear()),
         datasets: [
@@ -52,12 +49,11 @@ export const getChartData = days => {
     return data
 }
 
-export const getChartOptions = () => {
+export const getChartOptions = ({ titleText, legend }) => {
     return {
+        title: { display: true, position: 'bottom', text: titleText },
         maintainAspectRatio: false,
-        legend: {
-            display: false,
-        },
+        legend,
         tooltips: {
             xPadding: 10,
             yPadding: 10,
@@ -80,7 +76,7 @@ export const getChartOptions = () => {
                     ticks: {
                         fontStyle: 'bold',
                         callback: function (value) {
-                            return `${value} °C`
+                            return `${value}°C`
                         },
                     },
                 },

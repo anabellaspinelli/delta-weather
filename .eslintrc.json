@@ -22,7 +22,8 @@
         "indent": [0, 4, { "SwitchCase": 1 }],
         "linebreak-style": ["error", "unix"],
         "quotes": ["error", "single", { "avoidEscape": true }],
-        "semi": ["error", "never"]
+        "semi": ["error", "never"],
+        "no-unused-vars": "off"
     },
     "settings": {
         "react": {
