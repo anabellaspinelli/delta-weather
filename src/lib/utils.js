@@ -49,9 +49,9 @@ export const getBarChartData = days => {
     return data
 }
 
-export const getChartOptions = ({ titleText, legend }) => {
+export const getChartOptions = ({ title, legend }) => {
     return {
-        title: { display: true, position: 'bottom', text: titleText },
+        title,
         maintainAspectRatio: false,
         legend,
         tooltips: {

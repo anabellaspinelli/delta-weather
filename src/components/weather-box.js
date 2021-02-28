@@ -107,6 +107,30 @@ const LineChart = styled(Line)`
     height: 250px;
 `
 
+const ChartLegends = styled.div`
+    display: flex;
+    padding: 0 100px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #666;
+`
+
+const Legend = styled.div`
+    width: 50%;
+`
+
+const MinTemp = styled.strong`
+    color: ${({ hasNegativeTemps }) => {
+        return hasNegativeTemps ? 'rgba(30, 144, 255, 0.7)' : '#ec9f0f'
+    }};
+`
+
+const MaxTemp = styled.strong`
+    color: ${({ hasNegativeTemps }) => {
+        return hasNegativeTemps ? NEGATIVE_TEMP_BORDER_COLOR : '#d22500'
+    }};
+`
+
 export const WeatherBox = ({ days, locationName }) => {
     const hasNegativeTemps = days.find(day => day.temp < 0)
     const hasPositiveTemps = days.find(day => day.temp > 0)
@@ -185,7 +209,6 @@ export const WeatherBox = ({ days, locationName }) => {
             <ChartContainer>
                 <BarChart
                     options={getChartOptions({
-                        titleText: 'Average Temperature for this day, per year',
                         legend: { display: false },
                     })}
                     data={getBarChartData(days)}
@@ -243,34 +266,20 @@ export const WeatherBox = ({ days, locationName }) => {
                             ],
                         },
                     }}
-                    options={getChartOptions({
-                        titleText: 'Min and Max temperatures per year',
-                        legend: {
-                            display: true,
-                            labels: {
-                                generateLabels: () => [
-                                    {
-                                        text: 'Min temp.',
-                                        strokeStyle: hasNegativeTemps
-                                            ? NEGATIVE_TEMP_BORDER_COLOR
-                                            : '#d22500',
-                                        fillStyle: hasNegativeTemps
-                                            ? NEGATIVE_TEMP_BG_COLOR
-                                            : 'rgba( 226, 111, 45, 0.3)',
-                                    },
-                                    {
-                                        text: 'Max temp.',
-                                        strokeStyle: hasNegativeTemps
-                                            ? 'rgba(30, 144, 255, 0.7)'
-                                            : '#ec9f0f',
-                                        fillStyle: 'rgba(0, 0, 0, 0)',
-                                    },
-                                ],
-                            },
-                        },
-                    })}
+                    options={getChartOptions({ legend: { display: false } })}
                 />
             </ChartContainer>
+
+            <ChartLegends>
+                <Legend>Average Temperature for this day, per year</Legend>
+
+                <Legend style={{ paddingLeft: '50px' }}>
+                    <MinTemp hasNegativeTemps={hasNegativeTemps}>Min</MinTemp>{' '}
+                    and{' '}
+                    <MaxTemp hasNegativeTemps={hasNegativeTemps}>Max</MaxTemp>{' '}
+                    temperatures per year
+                </Legend>
+            </ChartLegends>
         </WeatherContainer>
     )
 }
