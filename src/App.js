@@ -63,10 +63,21 @@ const Footer = styled.footer`
 
 const App = () => {
     const [state, dispatch] = React.useReducer(temperatureReducer, initialState)
+    const [searchText, setSearchText] = React.useState('')
 
-    const handleFormSubmit = async location => {
+    const handleFormSubmit = async () => {
         dispatch({ type: 'started' })
-        const weathers = await getAllWeathers(location)
+
+        if ('URLSearchParams' in window) {
+            const searchParams = new URLSearchParams(window.location.search)
+            searchParams.set('location', searchText)
+
+            const newRelativePathQuery =
+                window.location.pathname + '?' + searchParams.toString()
+            history.pushState(null, '', newRelativePathQuery)
+        }
+
+        const weathers = await getAllWeathers(searchText)
         if (weathers.error) {
             dispatch({ type: 'error', error: weathers.error })
             return
@@ -97,7 +108,11 @@ const App = () => {
                         "This application can be used to query the historical records for temperature on the current date in the past 5 decades. It is meant as a proof of concept on what we can observe when we're provided with data thats closer to our own day-to-day experience, rather than scientific information that often seems distant and hard to relate to."
                     }
                 </Intro>
-                <LocationForm onSubmit={handleFormSubmit} />
+                <LocationForm
+                    onSubmit={handleFormSubmit}
+                    setLocation={setSearchText}
+                    location={searchText}
+                />
 
                 {state.status === 'errored' && (
                     <ErrorBox errorMessage={state.error.message} />
@@ -123,6 +138,7 @@ const App = () => {
                         <WeatherBox
                             days={state.days}
                             locationName={state.locationName}
+                            searchText={searchText}
                         />
                         <MobileMessage>
                             To see graphs about this data ☝🏻 view this page on a

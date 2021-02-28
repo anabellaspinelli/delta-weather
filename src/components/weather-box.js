@@ -6,7 +6,7 @@ import { Bar, Line } from 'react-chartjs-2'
 import { ReactComponent as Telegram } from './assets/telegram.svg'
 import { ReactComponent as Twitter } from './assets/twitter.svg'
 
-const NEGATIVE_TEMP_BG_COLOR = 'rgba(0, 220, 220, 0.3)'
+const NEGATIVE_TEMP_BG_COLOR = 'rgba(0, 220, 220, 0.15)'
 const NEGATIVE_TEMP_BORDER_COLOR = 'rgba(0, 220, 220, 0.9)'
 
 import Tippy from '@tippyjs/react'
@@ -144,9 +144,12 @@ const MaxTemp = styled.strong`
     }};
 `
 
-export const WeatherBox = ({ days, locationName }) => {
+export const WeatherBox = ({ days, locationName, searchText }) => {
     const hasNegativeTemps = days.find(day => day.temp < 0)
     const hasPositiveTemps = days.find(day => day.temp > 0)
+    const cleanSearchText = (
+        searchText.charAt(0).toUpperCase() + searchText.slice(1)
+    ).trim()
 
     return (
         <WeatherContainer hue={getHue(hasNegativeTemps, hasPositiveTemps)}>
@@ -297,9 +300,11 @@ export const WeatherBox = ({ days, locationName }) => {
                 <div>Share this page</div>
                 <ShareIcons>
                     <a
-                        href={
-                            'https://t.me/share/url?url=https%3A%2F%2Fhack-the-weather.netlify.app&text=See%20today%27s%20weather%20compared%20to%20the%20same%20day%20in%20the%20last%205%20decades'
-                        }
+                        href={`https://t.me/share/url?url=${encodeURIComponent(
+                            window.location,
+                        )}&text=${encodeURIComponent(
+                            `See the temperature for this day on ${cleanSearchText} in the past 5 decades with Hack The Weather! Try it yourself!`,
+                        )}`}
                     >
                         <Telegram
                             width={30}
@@ -309,9 +314,9 @@ export const WeatherBox = ({ days, locationName }) => {
                         />
                     </a>
                     <a
-                        href={
-                            "https://twitter.com/intent/tweet?text=See today's temperature in the last 5 decades with Hack The Weather! Try for yourself here➡️\n&url=https%3A%2F%2Fhack-the-weather.netlify.app"
-                        }
+                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                            `See the temperature for this day on ${cleanSearchText} in the past 5 decades with Hack The Weather! Try it yourself! ➡️`,
+                        )}&url=${encodeURIComponent(window.location)}`}
                         target='_blank'
                         rel='noopener noreferrer'
                     >
@@ -331,5 +336,6 @@ WeatherBox.propTypes = {
             tempmin: PropTypes.number,
         }),
     ).isRequired,
-    locationName: PropTypes.string,
+    locationName: PropTypes.string.isRequired,
+    searchText: PropTypes.string.isRequired,
 }
