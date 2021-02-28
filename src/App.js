@@ -86,8 +86,50 @@ const App = () => {
         setCleanSearchText(cleaned)
     }, [searchText])
 
+    React.useEffect(async () => {
+        if ('URLSearchParams' in window) {
+            var searchParams = new URLSearchParams(window.location.search)
+            const urlSearchText = searchParams.get('location')
+
+            if (typeof urlSearchText === 'string' && urlSearchText.length > 0) {
+                dispatch({ type: 'started' })
+
+                setSearchText(urlSearchText)
+
+                const weathers = await getAllWeathers(urlSearchText)
+                if (weathers.error) {
+                    dispatch({ type: 'error', error: weathers.error })
+                    return
+                }
+
+                const days = sortDays(weathers.days).map(day => ({
+                    datetime: day.datetime,
+                    temp: day.temp,
+                    tempmax: day.tempmax,
+                    tempmin: day.tempmin,
+                }))
+
+                dispatch({
+                    type: 'resolved',
+                    days,
+                    locationName: weathers.address,
+                })
+            }
+        }
+    }, [])
+
     const handleFormSubmit = async () => {
         dispatch({ type: 'started' })
+
+        if (searchText.length === 0) return
+
+        if ('URLSearchParams' in window) {
+            var searchParams = new URLSearchParams(window.location.search)
+            searchParams.set('location', searchText)
+            var newRelativePathQuery =
+                window.location.pathname + '?' + searchParams.toString()
+            history.pushState(null, '', newRelativePathQuery)
+        }
 
         const weathers = await getAllWeathers(searchText)
         if (weathers.error) {
@@ -218,7 +260,7 @@ const App = () => {
                                         href={`https://t.me/share/url?url=${encodeURIComponent(
                                             window.location,
                                         )}&text=${encodeURIComponent(
-                                            `I just saw the temperature for this day at ${cleanSearchText} on the past 5 decades with Hack The Weather! Try it yourself!`,
+                                            `I just saw what the temperature was on this day in ${cleanSearchText} in the past 5 decades with Hack The Weather! Try it yourself!`,
                                         )}`}
                                     >
                                         <Telegram
@@ -230,7 +272,7 @@ const App = () => {
                                     </a>
                                     <a
                                         href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                                            `I just saw the temperature for this day at ${cleanSearchText} on the past 5 decades with Hack The Weather! Try it yourself!`,
+                                            `I just saw what the temperature was on this day in ${cleanSearchText} in the past 5 decades with Hack The Weather! Try it yourself!`,
                                         )}&url=${encodeURIComponent(
                                             window.location,
                                         )}`}
