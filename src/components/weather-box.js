@@ -3,6 +3,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { Bar, Line } from 'react-chartjs-2'
 
+import { ReactComponent as Telegram } from './assets/telegram.svg'
+import { ReactComponent as Twitter } from './assets/twitter.svg'
+
 const NEGATIVE_TEMP_BG_COLOR = 'rgba(0, 220, 220, 0.3)'
 const NEGATIVE_TEMP_BORDER_COLOR = 'rgba(0, 220, 220, 0.9)'
 
@@ -40,6 +43,17 @@ const DaysSection = styled.section`
 const WeatherTitle = styled.p`
     font-size: 2rem;
     padding-top: 32px;
+`
+
+const ShareSection = styled.section`
+    margin-top: 30px;
+`
+
+const ShareIcons = styled.div`
+    display: flex;
+    justify-content: space-evenly;
+    width: 150px;
+    margin: 0 auto;
 `
 
 const Day = styled.div`
@@ -99,7 +113,6 @@ const ChartContainer = styled.div`
 `
 
 const BarChart = styled(Bar)`
-    padding: 100px;
     height: 250px;
 `
 
@@ -280,6 +293,26 @@ export const WeatherBox = ({ days, locationName }) => {
                     temperatures per year
                 </Legend>
             </ChartLegends>
+            <ShareSection>
+                <div>Share this page</div>
+                <ShareIcons>
+                    <a
+                        href={
+                            'https://t.me/share/url?url=https%3A%2F%2Fhack-the-weather.netlify.app&text=See%20today%27s%20weather%20compared%20to%20the%20same%20day%20in%20the%20last%205%20decades'
+                        }
+                    >
+                        <Telegram
+                            width={30}
+                            height={30}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                        />
+                    </a>
+                    <a>
+                        <Twitter width={30} height={30} />
+                    </a>
+                </ShareIcons>
+            </ShareSection>
         </WeatherContainer>
     )
 }
