@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import { Bar } from 'react-chartjs-2'
+import { Bar, Line } from 'react-chartjs-2'
 
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css' // optional
@@ -93,6 +93,14 @@ const ChartContainer = styled.div`
     margin-top: 40px;
 `
 
+const BarChart = styled(Bar)`
+    height: 250px;
+`
+
+const LineChart = styled(Line)`
+    height: 250px;
+`
+
 export const WeatherBox = ({ days, locationName }) => {
     return (
         <WeatherContainer hue={getHue(days)}>
@@ -166,10 +174,58 @@ export const WeatherBox = ({ days, locationName }) => {
             </DaysSection>
 
             <ChartContainer>
-            <Bar
-                options={getChartOptions()}
-                data={getChartData(days)}
-            />
+                <BarChart
+                    height={200}
+                    options={getChartOptions()}
+                    data={getChartData(days)}
+                />
+                <LineChart
+                    height={200}
+                    data={{
+                        labels: days.map(d => new Date(d.datetime).getFullYear()),
+                        datasets: [
+                            { 
+                                data: days.map(d => d.tempmax),
+                                fill: 1,
+                                borderColor: '#d22500',
+                                backgroundColor: 'rgb( 226, 111, 45, 0.3)',
+                            },
+                            {
+                                data: days.map(d => d.tempmin),
+                                fill: false,
+                                borderColor: '#ec9f0f',
+                            },
+                        ],
+                        tooltips: {
+                            xPadding: 10,
+                            yPadding: 10,
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return `${tooltipItem.value}°C`
+                                },
+                            },
+                        },
+                        scales: {
+                            xAxes: [
+                                {
+                                    ticks: {
+                                        fontStyle: 'bold',
+                                    },
+                                },
+                            ],
+                            yAxes: [
+                                {
+                                    ticks: {
+                                        fontStyle: 'bold',
+                                        callback: function (value) {
+                                            return `${value} °C`
+                                        },
+                                    },
+                                },
+                            ],
+                        },
+                    }}
+                />
             </ChartContainer>
         </WeatherContainer>
     )

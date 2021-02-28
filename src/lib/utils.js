@@ -80,7 +80,7 @@ export const getChartOptions = () => {
                     ticks: {
                         fontStyle: 'bold',
                         callback: function (value) {
-                            return `${value} °C`
+                            return `${value}°C`
                         },
                     },
                 },
