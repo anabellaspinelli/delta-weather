@@ -2,8 +2,6 @@ import React from 'react'
 import { Container, Spinner } from 'react-bootstrap'
 import styled from 'styled-components'
 
-import { ReactComponent as Telegram } from './assets/telegram.svg'
-import { ReactComponent as Twitter } from './assets/twitter.svg'
 import { ErrorBox } from './components/error-box'
 import { LocationForm } from './components/location-form'
 import { getAllWeathers } from './lib/transport'
@@ -57,15 +55,6 @@ const Paragraph = styled.p`
     justify: center;
 `
 
-const Share = styled.div`
-    margin-bottom: 10px;
-`
-
-const ShareIcons = styled.div`
-    display: flex;
-    margin: 0 auto;
-`
-
 const Footer = styled.footer`
     width: 100%;
     text-align: center;
@@ -76,15 +65,6 @@ const Footer = styled.footer`
 const App = () => {
     const [state, dispatch] = React.useReducer(temperatureReducer, initialState)
     const [searchText, setSearchText] = React.useState('')
-    const [cleanSearchText, setCleanSearchText] = React.useState('')
-
-    React.useEffect(() => {
-        const cleaned = (
-            searchText.charAt(0).toUpperCase() + searchText.slice(1)
-        ).trim()
-
-        setCleanSearchText(cleaned)
-    }, [searchText])
 
     React.useEffect(async () => {
         if ('URLSearchParams' in window) {
@@ -192,6 +172,7 @@ const App = () => {
                         <WeatherBox
                             days={state.days}
                             locationName={state.locationName}
+                            searchText={searchText}
                         />
                         <MobileMessage>
                             To see graphs about this data ☝🏻 view this page on a
@@ -249,41 +230,6 @@ const App = () => {
                                 The free plan is enough for any experiment or
                                 personal project.
                             </Paragraph>
-                        </section>
-                        <section>
-                            <Share>
-                                <h3 style={{ marginTop: '48px' }}>
-                                    Share this page
-                                </h3>
-                                <ShareIcons>
-                                    <a
-                                        href={`https://t.me/share/url?url=${encodeURIComponent(
-                                            window.location,
-                                        )}&text=${encodeURIComponent(
-                                            `I just saw what the temperature was on this day in ${cleanSearchText} in the past 5 decades with Hack The Weather! Try it yourself!`,
-                                        )}`}
-                                    >
-                                        <Telegram
-                                            width={30}
-                                            height={30}
-                                            target='_blank'
-                                            rel='noopener noreferrer'
-                                        />
-                                    </a>
-                                    <a
-                                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                                            `I just saw what the temperature was on this day in ${cleanSearchText} in the past 5 decades with Hack The Weather! Try it yourself!`,
-                                        )}&url=${encodeURIComponent(
-                                            window.location,
-                                        )}`}
-                                        target='_blank'
-                                        rel='noopener noreferrer'
-                                        style={{ marginLeft: '10px' }}
-                                    >
-                                        <Twitter width={30} height={30} />
-                                    </a>
-                                </ShareIcons>
-                            </Share>
                         </section>
                     </>
                 )}
