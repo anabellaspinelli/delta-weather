@@ -10,8 +10,8 @@ describe('getDelta', () => {
 
 describe('getHue', () => {
     test('returns the correct hue for the provided number', () => {
-        expect(getHue([{ temp: -10 }, { temp: 10.2 }])).toEqual(100)
-        expect(getHue([{ temp: 3 }, { temp: 5 }])).toEqual(360)
-        expect(getHue([{ temp: -5 }, { temp: -4 }])).toEqual(200)
+        expect(getHue(true, true)).toEqual(100)
+        expect(getHue(false, true)).toEqual(360)
+        expect(getHue(true, false)).toEqual(200)
     })
 })

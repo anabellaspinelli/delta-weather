@@ -3,9 +3,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { Bar, Line } from 'react-chartjs-2'
 
+const NEGATIVE_TEMP_BG_COLOR = 'rgba(220, 220, 0, 0.3)'
+const NEGATIVE_TEMP_BORDER_COLOR = 'rgba(255, 255, 0, 0.9)'
+
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css' // optional
-import { getHue, getChartData, getChartOptions } from '../lib/utils'
+import { getHue, getBarChartData, getChartOptions } from '../lib/utils'
 
 const WeatherContainer = styled.div`
     text-align: center;
@@ -87,10 +90,12 @@ const MinMax = styled.div`
 `
 
 const ChartContainer = styled.div`
-    width: 400px;
-    height: 250px;
+    display: flex;
+    justify-content: space-evenly;
     margin: auto;
-    margin-top: 40px;
+    margin-top: 50px;
+    height: 250px;
+    width: 450px;
 `
 
 const BarChart = styled(Bar)`
@@ -102,8 +107,11 @@ const LineChart = styled(Line)`
 `
 
 export const WeatherBox = ({ days, locationName }) => {
+    const hasNegativeTemps = days.find(day => day.temp < 0)
+    const hasPositiveTemps = days.find(day => day.temp > 0)
+
     return (
-        <WeatherContainer hue={getHue(days)}>
+        <WeatherContainer hue={getHue(hasNegativeTemps, hasPositiveTemps)}>
             <WeatherTitle>
                 The temperature on this day in <br />
                 <strong>{locationName}</strong> was
@@ -175,25 +183,34 @@ export const WeatherBox = ({ days, locationName }) => {
 
             <ChartContainer>
                 <BarChart
-                    height={200}
-                    options={getChartOptions()}
-                    data={getChartData(days)}
+                    options={getChartOptions({
+                        titleText: 'Average Temperature for this day, per year',
+                        legend: { display: false },
+                    })}
+                    data={getBarChartData(days)}
                 />
                 <LineChart
-                    height={200}
                     data={{
-                        labels: days.map(d => new Date(d.datetime).getFullYear()),
+                        labels: days.map(d =>
+                            new Date(d.datetime).getFullYear(),
+                        ),
                         datasets: [
-                            { 
+                            {
                                 data: days.map(d => d.tempmax),
                                 fill: 1,
-                                borderColor: '#d22500',
-                                backgroundColor: 'rgb( 226, 111, 45, 0.3)',
+                                borderColor: hasNegativeTemps
+                                    ? NEGATIVE_TEMP_BORDER_COLOR
+                                    : '#d22500',
+                                backgroundColor: hasNegativeTemps
+                                    ? NEGATIVE_TEMP_BG_COLOR
+                                    : 'rgba( 226, 111, 45, 0.3)',
                             },
                             {
                                 data: days.map(d => d.tempmin),
                                 fill: false,
-                                borderColor: '#ec9f0f',
+                                borderColor: hasNegativeTemps
+                                    ? 'rgba(30, 144, 255, 0.7)'
+                                    : '#ec9f0f',
                             },
                         ],
                         tooltips: {
@@ -225,6 +242,33 @@ export const WeatherBox = ({ days, locationName }) => {
                             ],
                         },
                     }}
+                    options={getChartOptions({
+                        titleText: 'Min and Max temperatures per year',
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                generateLabels: () => [
+                                    {
+                                        text: 'Min temp.',
+                                        strokeStyle: hasNegativeTemps
+                                            ? NEGATIVE_TEMP_BORDER_COLOR
+                                            : '#d22500',
+                                        fillStyle: hasNegativeTemps
+                                            ? NEGATIVE_TEMP_BG_COLOR
+                                            : 'rgba( 226, 111, 45, 0.3)',
+                                    },
+                                    {
+                                        text: 'Max temp.',
+                                        strokeStyle: hasNegativeTemps
+                                            ? 'rgba(30, 144, 255, 0.7)'
+                                            : '#ec9f0f',
+                                        fillStyle: 'rgba(0, 0, 0, 0)',
+                                    },
+                                ],
+                            },
+                        },
+                    })}
                 />
             </ChartContainer>
         </WeatherContainer>
