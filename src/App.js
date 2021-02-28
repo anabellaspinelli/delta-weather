@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Spinner } from 'react-bootstrap'
 import styled from 'styled-components'
+
 import { ErrorBox } from './components/error-box'
 import { LocationForm } from './components/location-form'
 import { getAllWeathers } from './lib/transport'
@@ -18,6 +19,14 @@ const FHContainer = styled(Container)`
 const PageTitle = styled.h1`
     text-align: center;
     font-size: 6rem;
+    background-image: -webkit-linear-gradient(#ff0, #c00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 4px 2px rgb(50, 130, 250, 70%);
+    font-weight: 700;
+    position: relative;
+    -webkit-text-stroke: 1.5px #0f9;
+
     @media (max-width: 768px) {
         font-size: 3.5rem;
     }
@@ -55,10 +64,54 @@ const Footer = styled.footer`
 
 const App = () => {
     const [state, dispatch] = React.useReducer(temperatureReducer, initialState)
+    const [searchText, setSearchText] = React.useState('')
 
-    const handleFormSubmit = async location => {
+    React.useEffect(async () => {
+        if ('URLSearchParams' in window) {
+            var searchParams = new URLSearchParams(window.location.search)
+            const urlSearchText = searchParams.get('location')
+
+            if (typeof urlSearchText === 'string' && urlSearchText.length > 0) {
+                dispatch({ type: 'started' })
+
+                setSearchText(urlSearchText)
+
+                const weathers = await getAllWeathers(urlSearchText)
+                if (weathers.error) {
+                    dispatch({ type: 'error', error: weathers.error })
+                    return
+                }
+
+                const days = sortDays(weathers.days).map(day => ({
+                    datetime: day.datetime,
+                    temp: day.temp,
+                    tempmax: day.tempmax,
+                    tempmin: day.tempmin,
+                }))
+
+                dispatch({
+                    type: 'resolved',
+                    days,
+                    locationName: weathers.address,
+                })
+            }
+        }
+    }, [])
+
+    const handleFormSubmit = async () => {
         dispatch({ type: 'started' })
-        const weathers = await getAllWeathers(location)
+
+        if (searchText.length === 0) return
+
+        if ('URLSearchParams' in window) {
+            var searchParams = new URLSearchParams(window.location.search)
+            searchParams.set('location', searchText)
+            var newRelativePathQuery =
+                window.location.pathname + '?' + searchParams.toString()
+            history.pushState(null, '', newRelativePathQuery)
+        }
+
+        const weathers = await getAllWeathers(searchText)
         if (weathers.error) {
             dispatch({ type: 'error', error: weathers.error })
             return
@@ -81,15 +134,19 @@ const App = () => {
     return (
         <FHContainer className='App'>
             <div>
-                <PageTitle>
-                    <strong>Histo</strong>Weather
+                <PageTitle data-text='Hack The Weather'>
+                    Hack The Weather
                 </PageTitle>
                 <Intro>
                     {
                         "This application can be used to query the historical records for temperature on the current date in the past 5 decades. It is meant as a proof of concept on what we can observe when we're provided with data thats closer to our own day-to-day experience, rather than scientific information that often seems distant and hard to relate to."
                     }
                 </Intro>
-                <LocationForm onSubmit={handleFormSubmit} />
+                <LocationForm
+                    onSubmit={handleFormSubmit}
+                    setLocation={setSearchText}
+                    location={searchText}
+                />
 
                 {state.status === 'errored' && (
                     <ErrorBox errorMessage={state.error.message} />
@@ -115,6 +172,7 @@ const App = () => {
                         <WeatherBox
                             days={state.days}
                             locationName={state.locationName}
+                            searchText={searchText}
                         />
                         <MobileMessage>
                             To see graphs about this data ☝🏻 view this page on a
@@ -176,7 +234,10 @@ const App = () => {
                     </>
                 )}
             </div>
-            <Footer>Built with ❤️ in Cornellà & Barcelona</Footer>
+
+            <Footer>
+                <div>Built with ❤️ in Cornellà & Barcelona</div>
+            </Footer>
         </FHContainer>
     )
 }

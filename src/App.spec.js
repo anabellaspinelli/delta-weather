@@ -11,7 +11,7 @@ test('renders the title', () => {
     const { getByText } = render(<App />)
 
     const title = getByText((content, node) => {
-        const hasText = node => node.textContent === 'HistoWeather'
+        const hasText = node => node.textContent === 'Hack The Weather'
         const nodeHasText = hasText(node)
         const childrenDontHaveText = Array.from(node.children).every(
             child => !hasText(child),

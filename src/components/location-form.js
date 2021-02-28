@@ -11,8 +11,7 @@ const ResponsiveButton = styled(Button)`
     }
 `
 
-export const LocationForm = ({ onSubmit }) => {
-    const [location, setLocation] = useState('')
+export const LocationForm = ({ onSubmit, setLocation, location }) => {
     const inputRef = createRef()
 
     useEffect(() => {
@@ -21,7 +20,7 @@ export const LocationForm = ({ onSubmit }) => {
 
     const handleSubmit = event => {
         event.preventDefault()
-        onSubmit(location)
+        onSubmit()
     }
 
     return (
@@ -60,4 +59,6 @@ export const LocationForm = ({ onSubmit }) => {
 
 LocationForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
+    setLocation: PropTypes.func.isRequired,
+    location: PropTypes.string.isRequired,
 }
