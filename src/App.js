@@ -150,7 +150,6 @@ const App = () => {
                         <WeatherBox
                             days={state.days}
                             locationName={state.locationName}
-                            searchText={searchText}
                         />
                         <MobileMessage>
                             To see graphs about this data ☝🏻 view this page on a
