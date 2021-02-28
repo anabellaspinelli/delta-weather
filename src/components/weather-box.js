@@ -3,6 +3,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { Bar, Line } from 'react-chartjs-2'
 
+import { ReactComponent as Telegram } from './assets/telegram.svg'
+import { ReactComponent as Twitter } from './assets/twitter.svg'
+
 const NEGATIVE_TEMP_BG_COLOR = 'rgba(0, 220, 220, 0.15)'
 const NEGATIVE_TEMP_BORDER_COLOR = 'rgba(0, 220, 220, 0.9)'
 
@@ -40,6 +43,14 @@ const DaysSection = styled.section`
 const WeatherTitle = styled.p`
     font-size: 2rem;
     padding-top: 32px;
+`
+
+const ShareIcons = styled.div`
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    width: 100px;
+    margin-bottom: 20px;
 `
 
 const Day = styled.div`
@@ -130,9 +141,20 @@ const MaxTemp = styled.strong`
     }};
 `
 
-export const WeatherBox = ({ days, locationName }) => {
-    const hasNegativeTemps = days.find(day => day.temp < 0)
-    const hasPositiveTemps = days.find(day => day.temp > 0)
+export const WeatherBox = ({ days, locationName, searchText }) => {
+    const hasNegativeTemps = React.useMemo(
+        () => days.find(day => day.temp < 0),
+        [days],
+    )
+    const hasPositiveTemps = React.useMemo(
+        () => days.find(day => day.temp > 0),
+        [days],
+    )
+
+    const prettySearchText = React.useMemo(
+        () => (searchText.charAt(0).toUpperCase() + searchText.slice(1)).trim(),
+        [searchText],
+    )
 
     return (
         <WeatherContainer hue={getHue(hasNegativeTemps, hasPositiveTemps)}>
@@ -140,6 +162,34 @@ export const WeatherBox = ({ days, locationName }) => {
                 The temperature on this day in <br />
                 <strong>{locationName}</strong> was
             </WeatherTitle>
+            <div>Share these results</div>
+            <ShareIcons>
+                <a
+                    href={`https://t.me/share/url?url=${encodeURIComponent(
+                        window.location,
+                    )}&text=${encodeURIComponent(
+                        `I just saw what the temperature was on this day in ${prettySearchText} in the past 5 decades with Hack The Weather! Try it yourself! ➡️`,
+                    )}`}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                >
+                    <Telegram
+                        width={18}
+                        height={18}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                    />
+                </a>
+                <a
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                        `I just saw what the temperature was on this day in ${prettySearchText} in the past 5 decades with Hack The Weather! Try it yourself! ➡️`,
+                    )}&url=${encodeURIComponent(window.location)}`}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                >
+                    <Twitter width={18} height={18} />
+                </a>
+            </ShareIcons>
             <DaysSection>
                 {days.map((day, index) =>
                     index === days.length - 1 ? (
@@ -220,6 +270,7 @@ export const WeatherBox = ({ days, locationName }) => {
                         datasets: [
                             {
                                 data: days.map(d => d.tempmax),
+                                label: 'maxtemp',
                                 fill: 1,
                                 borderColor: hasNegativeTemps
                                     ? NEGATIVE_TEMP_BORDER_COLOR
@@ -231,6 +282,7 @@ export const WeatherBox = ({ days, locationName }) => {
                             {
                                 data: days.map(d => d.tempmin),
                                 fill: false,
+                                label: 'mintemp',
                                 borderColor: hasNegativeTemps
                                     ? 'rgba(30, 144, 255, 0.7)'
                                     : '#ec9f0f',
@@ -292,4 +344,5 @@ WeatherBox.propTypes = {
         }),
     ).isRequired,
     locationName: PropTypes.string.isRequired,
+    searchText: PropTypes.string.isRequired,
 }

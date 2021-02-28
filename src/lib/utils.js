@@ -42,6 +42,7 @@ export const getBarChartData = days => {
                 hoverBackgroundColor: days.map(d => getBorderColor(d.temp)),
                 borderWidth: 1,
                 data: days.map(d => d.temp),
+                label: 'temperatures',
             },
         ],
     }
