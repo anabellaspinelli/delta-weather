@@ -308,7 +308,13 @@ export const WeatherBox = ({ days, locationName }) => {
                             rel='noopener noreferrer'
                         />
                     </a>
-                    <a>
+                    <a
+                        href={
+                            "https://twitter.com/intent/tweet?text=See today's temperature in the last 5 decades with Hack The Weather! Try for yourself here➡️\n&url=https%3A%2F%2Fhack-the-weather.netlify.app"
+                        }
+                        target='_blank'
+                        rel='noopener noreferrer'
+                    >
                         <Twitter width={30} height={30} />
                     </a>
                 </ShareIcons>

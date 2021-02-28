@@ -5,6 +5,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     padding-top: 10vh;
+    background-color: #a5ffdd0f !important;
 }
 
 @media (max-width: 768px) {
