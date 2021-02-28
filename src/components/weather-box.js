@@ -161,16 +161,16 @@ export const WeatherBox = ({ days, locationName }) => {
                                 </Temperature>
                                 <MinMaxWrapper>
                                     <MinMax>
-                                        {`Min ${
-                                            day.tempmin !== null
-                                                ? day.tempmin + 'ºC'
+                                        {`Max ${
+                                            day.tempmax !== null
+                                                ? day.tempmax + 'ºC'
                                                 : 'No data'
                                         }`}
                                     </MinMax>
                                     <MinMax>
-                                        {`Max ${
-                                            day.tempmax !== null
-                                                ? day.tempmax + 'ºC'
+                                        {`Min ${
+                                            day.tempmin !== null
+                                                ? day.tempmin + 'ºC'
                                                 : 'No data'
                                         }`}
                                     </MinMax>
@@ -187,16 +187,16 @@ export const WeatherBox = ({ days, locationName }) => {
                             </Temperature>
                             <MinMaxWrapper>
                                 <MinMax>
-                                    {`Min ${
-                                        day.tempmin !== null
-                                            ? day.tempmin + 'ºC'
+                                    {`Max ${
+                                        day.tempmax !== null
+                                            ? day.tempmax + 'ºC'
                                             : 'No data'
                                     }`}
                                 </MinMax>
                                 <MinMax>
-                                    {`Max ${
-                                        day.tempmax !== null
-                                            ? day.tempmax + 'ºC'
+                                    {`Min ${
+                                        day.tempmin !== null
+                                            ? day.tempmin + 'ºC'
                                             : 'No data'
                                     }`}
                                 </MinMax>
