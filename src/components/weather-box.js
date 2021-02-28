@@ -3,8 +3,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { Bar, Line } from 'react-chartjs-2'
 
-const NEGATIVE_TEMP_BG_COLOR = 'rgba(220, 220, 0, 0.3)'
-const NEGATIVE_TEMP_BORDER_COLOR = 'rgba(255, 255, 0, 0.9)'
+const NEGATIVE_TEMP_BG_COLOR = 'rgba(0, 220, 220, 0.3)'
+const NEGATIVE_TEMP_BORDER_COLOR = 'rgba(0, 220, 220, 0.9)'
 
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css' // optional
@@ -65,10 +65,6 @@ const Day = styled.div`
 const Temperature = styled.p`
     font-size: 2rem;
     font-weight: 900;
-
-    ${'' /* @media (max-width: 768px) {
-        font-size: 4rem;
-    } */}
 `
 
 const Year = styled.h3`
@@ -93,12 +89,17 @@ const ChartContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 80px;
     height: 250px;
     width: 450px;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 `
 
 const BarChart = styled(Bar)`
+    padding: 100px;
     height: 250px;
 `
 
@@ -246,7 +247,6 @@ export const WeatherBox = ({ days, locationName }) => {
                         titleText: 'Min and Max temperatures per year',
                         legend: {
                             display: true,
-                            position: 'bottom',
                             labels: {
                                 generateLabels: () => [
                                     {
