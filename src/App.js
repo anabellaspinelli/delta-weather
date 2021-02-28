@@ -18,6 +18,14 @@ const FHContainer = styled(Container)`
 const PageTitle = styled.h1`
     text-align: center;
     font-size: 6rem;
+    background-image: -webkit-linear-gradient(#ff0, #c00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 4px 2px rgb(50, 130, 250, 70%);
+    font-weight: 700;
+    position: relative;
+    -webkit-text-stroke: 1.5px #0f9;
+
     @media (max-width: 768px) {
         font-size: 3.5rem;
     }
@@ -81,8 +89,8 @@ const App = () => {
     return (
         <FHContainer className='App'>
             <div>
-                <PageTitle>
-                    <strong>Histo</strong>Weather
+                <PageTitle data-text='Hack The Weather'>
+                    Hack The Weather
                 </PageTitle>
                 <Intro>
                     {
