@@ -123,6 +123,10 @@ const ChartLegends = styled.div`
     font-size: 13px;
     font-weight: bold;
     color: #666;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 `
 
 const Legend = styled.div`
@@ -320,7 +324,6 @@ export const WeatherBox = ({ days, locationName, searchText }) => {
                     options={getChartOptions({ legend: { display: false } })}
                 />
             </ChartContainer>
-
             <ChartLegends>
                 <Legend>Average Temperature for this day, per year</Legend>
 
