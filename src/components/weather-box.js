@@ -177,12 +177,7 @@ export const WeatherBox = ({ days, locationName, searchText }) => {
                     target='_blank'
                     rel='noopener noreferrer'
                 >
-                    <Telegram
-                        width={18}
-                        height={18}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                    />
+                    <Telegram width={18} height={18} target='_blank' />
                 </a>
                 <a
                     href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(

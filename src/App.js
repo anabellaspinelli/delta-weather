@@ -101,8 +101,12 @@ const App = () => {
     const handleFormSubmit = async () => {
         dispatch({ type: 'started' })
 
-        if (searchText.length === 0) return
+        if (searchText.length === 0) {
+            dispatch(initialState)
+            return
+        }
 
+        // set querystring in URL
         if ('URLSearchParams' in window) {
             var searchParams = new URLSearchParams(window.location.search)
             searchParams.set('location', searchText)
