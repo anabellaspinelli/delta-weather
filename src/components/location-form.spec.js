@@ -6,6 +6,8 @@ import { LocationForm } from './location-form'
 test('renders the location form', async () => {
     const locationFormProps = {
         onSubmit: jest.fn(),
+        location: 'the location',
+        setLocation: jest.fn(),
     }
 
     const { container } = render(<LocationForm {...locationFormProps} />)
@@ -28,7 +30,7 @@ test('renders the location form', async () => {
                   class="form-control form-control-lg"
                   placeholder="Try \\"Barcelona\\" or \\"Berlin\\"..."
                   type="text"
-                  value=""
+                  value="the location"
                 />
               </div>
               <div
@@ -52,7 +54,7 @@ test('searches for the location when submitted', async () => {
     const locationFormProps = {
         onSubmit: jest.fn(),
         setLocation: jest.fn(),
-        location: () => 'updated location',
+        location: 'updated location',
     }
 
     const { getByPlaceholderText } = render(
